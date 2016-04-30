@@ -97,7 +97,7 @@
                 // need to let the objects get set up... 
                 Script.setTimeout(function() {
                     Entities.callEntityMethod(objID, 'setTarget', [true]);
-                }, 2000);
+                }, 1000);
 
 
             } else {
@@ -135,8 +135,8 @@
         createBlockWall: function() {
             print("Spawner::createBlockWall()");
 
-            var width = 6;
-            var height = 4;
+            var width = 2;
+            var height = 2;
 
             var num = width * height;
 
@@ -188,21 +188,27 @@
             return ret;
         },
 
-
         resetBlocks: function() {
             print("BlockSpawner::resetBlocks()");
 
-            var num = getEntityUserDataEntry(this.entityID, "creationCount", -1);
+            var num = getEntityUserDataEntry(_this.entityID, "creationCount", -1);
 
             for (var i=0; i<num; i++) {
-                var name = "block" + i;
+                this.resetBlock(i);
+            }
+        },
 
-                var objID = findItemByName(this.entityID, name);
+        resetBlock: function(i) {
+            Script.setTimeout( function() {
+
+                var name = "block" + i;
+                print(name);
+                var objID = findItemByName(_this.entityID, name);
                 if (objID !== null) {
                     Entities.callEntityMethod(objID, 'setInactive');
                 }
-            }
-        }
+            }, 2);
+        },
     };
 
     return new Spawner();

@@ -70,7 +70,6 @@
         },
 
         clickDownOnEntity: function(entityID, mouseEvent) {
-
             if (this.isTarget()) {
                 this.handleHacking();
             } else {
@@ -96,6 +95,8 @@
         },
 
         setInactive: function() {
+            print("CodeBlock::setInactive()");
+
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
 
             Entities.editEntity(this.entityID, { color: { red: 0, green: 255, blue: 0} });

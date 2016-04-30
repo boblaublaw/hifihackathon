@@ -99,14 +99,19 @@
             this.setScore(score + 1);
             score = this.getScore();
 
-            if (score === 2) {
-                print("WIN STATE!");
-            } else {
+            print(score);
+            
+            // if (score === 2) {
+            //     print("WIN STATE!");
+            // } else {
 
                 var objID = findItemByName(this.entityID, "blockSpawner");
+                print(JSON.stringify(objID));
 
-                Entities.callEntityMethod(objID, 'resetBlocks');
-            }
+                Script.setTimeout(function() {
+                    Entities.callEntityMethod(objID, 'resetBlocks');
+                }, 0);
+            // }
         },
     };
     
