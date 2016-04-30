@@ -11,13 +11,6 @@
 var BOOTH_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
 var MODEL_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/assets/phoneBooth.fbx";
 
-// this part of the code describes how to center the entity in front of your avatar when it is created.
-var orientation = MyAvatar.orientation;
-orientation = Quat.safeEulerAngles(orientation);
-orientation.x = 0;
-orientation = Quat.fromVec3Degrees(orientation);
-var center = Vec3.sum(MyAvatar.getHeadPosition(), Vec3.multiply(2, Quat.getFront(orientation)));
-
 
 print("SPAWNBOOTH START");
 
@@ -187,7 +180,7 @@ function updateBooths(deltaTime) {
     // Update all the Booths
     print ('this is the update check!');
     for (var i = 0; i < numBooths; i++) {
-      print (Booths[i].enterEntity + " is in me");
+      print (Booths[i].occupant + " is in me");
 
     }
   }

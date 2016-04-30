@@ -14,8 +14,8 @@
 
 (function() {
     var _this = this;
-    print("PRELOADING NEW VERSION")
-/*    var audioOptions = new AudioEffectOptions({
+ /*   print('PRELOADING JBB VERSION');
+    var audioOptions = new AudioEffectOptions({
       bandwidth: 7000,
       preDelay: 20,
       lateDelay: 0,
@@ -37,7 +37,7 @@
       lateMixLeft: 90,
       lateMixRight: 90,
       wetDryMix: 70,
-    });*/
+    });
 
     function setter(name) {
       return function(value) {
@@ -59,12 +59,13 @@
     }
 
     function scriptEnding() {
-/*      AudioDevice.setReverb(false);*/
+      AudioDevice.setReverb(false);
       print("ending booth.js");
-    }
+    }*/
+
     _this.enterEntity = function(entityID) {
-      //print(MyAvatar.UUID ' is inside ' + entityID);
-      _this.occupant = 0;
+      print('I is inside ' + entityID);
+      _this.occupant = MyAvatar.UUID;
       // create a slider for each parameter
 /*      AudioDevice.setReverbOptions(audioOptions);
       AudioDevice.setReverb(true);*/
