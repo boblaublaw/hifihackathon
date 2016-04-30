@@ -1,5 +1,8 @@
 
-
+///
+/// When attached to an object, this script will create a bunch of other objects,
+/// which themselves have scripts attached to them
+///
 
 (function() {
 
@@ -26,7 +29,7 @@
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("Spawner::got click()");
 
-            this.createBlockSwarm();
+            this.createBlockWall();
         },
 
 
@@ -37,12 +40,31 @@
             this.createBlock(1);
         },
 
-        createBlock: function(num) {
+        createBlockWall: function() {
+            print("Spawner::createBlockWall()");
+
+            var width = 6;
+            var height = 4;
+
+            var num = width * height;
+
+            for( var h=0; h<height; h++) {
+                for( var w=0; w<width; w++) {
+                    var i = h*height + w;
+
+                    this.createBlock(i, w, h);
+                }
+            }
+
+        },
+
+        createBlock: function(num, widthOffset, heightOffset) {
             print("Spawner::createBlock(" + num + ")");
 
-            var xVal = 0 + num;
+            var xVal = 0 + widthOffset * 0.5;
+            var yVal = 0 + heightOffset * 0.5;
             
-            var blockPosition = { x: xVal, y: 0, z: 0}; 
+            var blockPosition = { x: xVal, y: yVal, z: 0}; 
             var blockDimensions = { x: .2, y: .2, z: .2 };
 
             var blockID = Entities.addEntity({
