@@ -9,14 +9,29 @@
     var targetScript = Script.resolvePath("./clickTest.js");
 
     //
-    // These are generic functions for setting data on an object.
+    // These are generic functions
     //
 
-    // FIXME fetch from a subkey of user data to support non-destructive modifications
-    function setEntityUserData(id, data) {
-        var json = JSON.stringify(data)
-        Entities.editEntity(id, { userData: json });
+    function findItemByName(searchingPointEntityID, itemName) {
+        // find the database entity
+        print("Looking for item: " + itemName);
+        var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*100); 
+        
+        for (var i = 0; i < entitiesInZone.length; i++) {
+            if (Entities.getEntityProperties(entitiesInZone[i]).name == itemName) {
+                print(itemName + " found! " + entitiesInZone[i]);
+                return entitiesInZone[i];
+            }
+        }
+        print("Item " + itemName + " not found");
+        return null;
     };
+
+    // // FIXME fetch from a subkey of user data to support non-destructive modifications
+    // function setEntityUserData(id, data) {
+    //     var json = JSON.stringify(data)
+    //     Entities.editEntity(id, { userData: json });
+    // };
 
     // FIXME do non-destructive modification of the existing user data
     function getEntityUserData(id) {
@@ -34,7 +49,7 @@
     };
 
     function setEntityUserDataEntry(id, name, value) {
-        var data = {};
+        var data = getEntityUserData(id);
         data[name] = value;
         var json = JSON.stringify(data)
         Entities.editEntity(id, { userData: json });
@@ -84,9 +99,28 @@
                 this.setActive(true);
             } else {
                 print("active");
+
+                this.cleanupBlockWall();
+
+                this.setActive(false);
             }
         },
 
+
+        cleanupBlockWall: function() {
+            print("Spawner::cleanupBlockWall()");
+
+            var num = getEntityUserDataEntry(this.entityID, "creationCount", -1);
+
+            for (var i=0; i<num; i++) {
+                var name = "block" + i;
+
+                var obj = findItemByName(this.entityID, name);
+                if (obj != null) {
+                    Entities.deleteEntity(obj);
+                }
+            }
+        },
 
         createBlockSwarm: function() {
             print("Spawner::createBlockSwarm()");
@@ -112,6 +146,7 @@
             }
 
             setEntityUserDataEntry(this.entityID, "creationCount", num);
+            print("set count at " + num);
         },
 
         createBlock: function(num, widthOffset, heightOffset) {
@@ -143,7 +178,8 @@
 
             print("active state: " + active);
 
-            setEntityUserDataEntry(this.entityID, "active", true);
+            setEntityUserDataEntry(this.entityID, "active", active);
+            setEntityUserDataEntry(this.entityID, "junk", 555);
         },
 
         isActive: function() {
