@@ -91,15 +91,7 @@
 
                 this.setActive(true);
 
-                // set block 0 as the hack target
-                var objID = findItemByName(this.entityID, "block0");
-
-                // need to let the objects get set up... 
-                Script.setTimeout(function() {
-                    Entities.callEntityMethod(objID, 'setTarget', [true]);
-                }, 1000);
-
-
+                this.activateWall();
             } else {
                 print("active");
 
@@ -109,6 +101,38 @@
             }
         },
 
+
+        activateWall: function() {
+            var num = getEntityUserDataEntry(_this.entityID, "creationCount", -1);
+
+            for (var i=0; i<num; i++) {
+                this.activateBlock(i);
+            }
+
+            // now pick a block to be the new target
+
+            // set block 0 as the hack target
+            var objID = findItemByName(this.entityID, "block0");
+
+            // need to let the objects get set up... 
+            Script.setTimeout(function() {
+                Entities.callEntityMethod(objID, 'setTarget', [true]);
+            }, 1000);
+        },
+
+
+        activateBlock: function(i) {
+            Script.setTimeout( function() {
+                var name = "block" + i;
+                print(name);
+                var objID = findItemByName(_this.entityID, name);
+                if (objID !== null) {
+                    Entities.callEntityMethod(objID, 'setActive');
+                }
+                
+            }, 2);
+        },
+        
 
         cleanupBlockWall: function() {
             print("Spawner::cleanupBlockWall()");
@@ -196,11 +220,16 @@
             // have to do this so that the block number is properly handled
             // in the setTimeout method
             for (var i=0; i<num; i++) {
-                this.resetBlock(i);
+                this.putBlockInInactiveState(i);
             }
+
+            // once that is done, now let's set up the board game again
+            Script.setTimeout( function() {
+                _this.activateWall();
+            }, 1000);                
         },
 
-        resetBlock: function(i) {
+        putBlockInInactiveState: function(i) {
             Script.setTimeout( function() {
 
                 var name = "block" + i;

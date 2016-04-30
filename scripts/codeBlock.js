@@ -101,6 +101,12 @@
 
             Entities.editEntity(this.entityID, { color: { red: 0, green: 255, blue: 0} });
         },
+
+        setActive: function() {
+            print("CodeBlock::setActive()");
+
+            Entities.editEntity(this.entityID, { color: { red: 25, green: 25, blue: 25} });
+        },
     };
 
     return new CodeBlock();
