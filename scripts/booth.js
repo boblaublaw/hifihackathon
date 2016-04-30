@@ -63,16 +63,17 @@
       print("ending booth.js");
     }*/
 
+    print ("hi");
     _this.enterEntity = function(entityID) {
-      print('I is inside ' + entityID);
-      _this.occupant = MyAvatar.UUID;
+      print(MyAvatar.sessionUUID + ' is inside ' + entityID);
+      _this.occupant = MyAvatar.sessionUUID;
       // create a slider for each parameter
 /*      AudioDevice.setReverbOptions(audioOptions);
       AudioDevice.setReverb(true);*/
     };
 
     _this.leaveEntity = function(entityID) {
-      print('I am outside');
+      print(MyAvatar.sessionUUID + ' is outside ' + entityID);
 /*      AudioDevice.setReverb(false);*/
     };
 });

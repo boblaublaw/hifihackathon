@@ -8,8 +8,8 @@
 // references to our assets.  entity scripts need to be served from somewhere that is publically accessible -- so http(s) or atp
 
 
-var BOOTH_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var MODEL_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/assets/phoneBooth.fbx";
+var BOOTH_SCRIPT_URL =  "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
+var MODEL_URL =         "http://rawgit.com/boblaublaw/hifihackathon/master/assets/phoneBooth.fbx";
 
 
 print("SPAWNBOOTH START");
@@ -20,13 +20,14 @@ var startTimeInSeconds = new Date().getTime() / 1000;
 
 var lifeTime = 3600; // One hour lifespan
 var frame = 0;
+
 // Array of Booths
 var Booths = [];
 var allThings = [];
-var roomCollisionList = "myAvatar"
+var roomCollisionList = "myAvatar";
 
 function addRoom() {
-  print ("SPAWNBOOTH adding room elements");
+  print ('SPAWNBOOTH adding room elements');
   // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
     type: "Box",
@@ -181,7 +182,6 @@ function updateBooths(deltaTime) {
     print ('this is the update check!');
     for (var i = 0; i < numBooths; i++) {
       print (Booths[i].occupant + " is in me");
-
     }
   }
   // Check to see if we've been running long enough that our Booths are dead
