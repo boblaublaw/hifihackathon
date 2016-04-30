@@ -49,6 +49,24 @@ function addRoom() {
     shapeType: "box"
   },{
     type: "Box",
+    name: "ceiling",
+    position: { x: 0, y: 1.5, z:0 },
+    dimensions: {
+      x: 10,
+      y: 0.1,
+      z: 10
+    },
+    collidesWith: "",
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box"
+  },{
+    type: "Box",
     name: "rightwall",
     position: { x: 5.0, y: 0, z:0 },
     dimensions: {
@@ -68,7 +86,7 @@ function addRoom() {
   }, {
     type: "Box",
     name: "farwall",
-    position: { x: 0, y: 0, z:-5 },
+    position: { x: 0, y: 0, z:-4.7 },
     dimensions: {
       x: 10,
       y: 3,
