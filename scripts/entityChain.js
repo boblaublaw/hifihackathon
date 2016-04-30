@@ -8,15 +8,28 @@
     var active = false;
     this.clickDownOnEntity = function(entityID, mouseEvent) {
 
-        print("obj name is " + getEntityName(entityID));
-        
-        // check if name is A or b
-        print("got click");
-        var boomtown = null;
-        boomtown = findItemByName(entityID, "quimby");
-        if (boomtown) {
-            Entities.editEntity(entityID, { color: { red: 255, green: 255, blue: 255} });
-        }
+        var name = getEntityName(entityID);
+        // print("obj name is " + name);
+
+
+        if (name == "q-a") {
+            print("clicked A");
+
+            target = findItemByName(entityID, "q-b");
+            if (target) {
+                Entities.editEntity(target, { color: { red: 255, green: 255, blue: 255} });
+            }
+        } else if (name == "q-b") {
+            print("clicked B");
+
+            target = findItemByName(entityID, "q-c");
+            if (target) {
+                Entities.editEntity(target, { color: { red: 255, green: 255, blue: 255} });
+            }
+            
+        } else if (name == "q-c") {
+            print("clicked C");
+        } 
     }; 
 
 
