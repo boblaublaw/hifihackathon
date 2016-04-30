@@ -3,9 +3,8 @@
 ///
 
 
-
 (function(){ 
-    var active = false;
+
     this.clickDownOnEntity = function(entityID, mouseEvent) {
 
         var name = getEntityName(entityID);
@@ -18,23 +17,52 @@
             target = findItemByName(entityID, "q-b");
             if (target) {
                 Entities.editEntity(target, { color: { red: 255, green: 255, blue: 255} });
+                markObjectActiveState(target, true);
             }
         } else if (name == "q-b") {
             print("clicked B");
-
-            target = findItemByName(entityID, "q-c");
-            if (target) {
-                Entities.editEntity(target, { color: { red: 255, green: 255, blue: 255} });
+            
+            if (!isObjectActive(entityID)) {
+                print ("b is NOT ACTIVE");
+            } else {
+                target = findItemByName(entityID, "q-c");
+                if (target) {
+                    Entities.editEntity(target, { color: { red: 255, green: 255, blue: 255} });
+                    markObjectActiveState(target, true);
+                }
             }
             
         } else if (name == "q-c") {
             print("clicked C");
+
+            if (!isObjectActive(entityID)) {
+                print ("c is NOT ACTIVE");
+            } else {
+                print ("C BOOMTOWN");
+            }
         } 
     }; 
 
 
     function getEntityName(entityID) {
-        return Entities.getEntityProperties(entityID, "name").name;
+        return Entities.getEntityProperties(entityID).name;
+    };
+
+    function markObjectActiveState(entityID, bActive) {
+        var data = {};
+        data["active"] = bActive;
+        setEntityUserData(entityID, data);
+    };
+    
+    function isObjectActive(entityID) {
+        var results = getEntityUserData(entityID);
+        if ("active" in results) {
+            print("zzz");
+            print(results.active);
+            return results.active;
+        }
+        
+        return false;
     };
 
     
@@ -51,6 +79,28 @@
         }
         print("Item " + itemName + " not found");
         return null;
+    };
+
+
+    // FIXME fetch from a subkey of user data to support non-destructive modifications
+    function setEntityUserData(id, data) {
+        var json = JSON.stringify(data)
+        Entities.editEntity(id, { userData: json });
+    };
+
+    // FIXME do non-destructive modification of the existing user data
+    function getEntityUserData(id) {
+        var results = null;
+        var properties = Entities.getEntityProperties(id, "userData");
+        if (properties.userData) {
+            try {
+                results = JSON.parse(properties.userData);
+            } catch(err) {
+                print("err");
+                print("properties.userData");
+            }
+        }
+        return results ? results : {};
     };
 
 })
