@@ -161,15 +161,18 @@
 
             var width = 2;
             var height = 2;
+            var depth = 2;
 
-            var num = width * height;
+            var num = width * height * depth;
 
             var i = 0;
             
-            for( var h=0; h<height; h++) {
-                for( var w=0; w<width; w++) {
-                    this.createBlock(i, w, h);
-                    i += 1;
+            for( var d=0; d<depth; d++) {
+                for( var h=0; h<height; h++) {
+                    for( var w=0; w<width; w++) {
+                        this.createBlock(i, w, h, d);
+                        i += 1;
+                    }
                 }
             }
 
@@ -177,13 +180,14 @@
             // print("set count at " + num);
         },
 
-        createBlock: function(num, widthOffset, heightOffset) {
+        createBlock: function(num, widthOffset, heightOffset, depthOffset) {
             print("Spawner::createBlock(" + num + ")");
 
             var xVal = 0 + widthOffset * 0.5;
             var yVal = 0 + heightOffset * 0.5;
+            var zVal = 0 + depthOffset * 0.5;
             
-            var blockPosition = { x: xVal, y: yVal, z: 0}; 
+            var blockPosition = { x: xVal, y: yVal, z: zVal}; 
             var blockDimensions = { x: .2, y: .2, z: .2 };
 
             var blockID = Entities.addEntity({
