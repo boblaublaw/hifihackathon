@@ -90,6 +90,16 @@
                 this.createBlockWall();
 
                 this.setActive(true);
+
+                // set block 0 as the hack target
+                var objID = findItemByName(this.entityID, "block0");
+
+                // need to let the objects get set up... 
+                Script.setTimeout(function() {
+                    Entities.callEntityMethod(objID, 'setTarget', [true]);
+                }, 2000);
+
+
             } else {
                 print("active");
 
@@ -140,7 +150,7 @@
             }
 
             setEntityUserDataEntry(this.entityID, "creationCount", num);
-            print("set count at " + num);
+            // print("set count at " + num);
         },
 
         createBlock: function(num, widthOffset, heightOffset) {

@@ -50,7 +50,6 @@
 
         preload: function(entityID) {
             print("CodeBlock::preload()");
-
             this.entityID = entityID;
         },
 
