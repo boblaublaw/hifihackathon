@@ -63,7 +63,8 @@
       print("ending booth.js");
     }
     _this.enterEntity = function(entityID) {
-      print('I am inside ' + entityID);
+      //print(MyAvatar.UUID ' is inside ' + entityID);
+      _this.occupant = 0;
       // create a slider for each parameter
 /*      AudioDevice.setReverbOptions(audioOptions);
       AudioDevice.setReverb(true);*/

@@ -186,6 +186,10 @@ function updateBooths(deltaTime) {
   if ((frame % 300) == 0) {
     // Update all the Booths
     print ('this is the update check!');
+    for (var i = 0; i < numBooths; i++) {
+      print (Booths[i].enterEntity + " is in me");
+
+    }
   }
   // Check to see if we've been running long enough that our Booths are dead
   var nowTimeInSeconds = new Date().getTime() / 1000;
