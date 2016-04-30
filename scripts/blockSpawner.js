@@ -115,9 +115,9 @@
             for (var i=0; i<num; i++) {
                 var name = "block" + i;
 
-                var obj = findItemByName(this.entityID, name);
-                if (obj != null) {
-                    Entities.deleteEntity(obj);
+                var objID = findItemByName(this.entityID, name);
+                if (objID !== null) {
+                    Entities.deleteEntity(objID);
                 }
             }
         },
@@ -137,11 +137,12 @@
 
             var num = width * height;
 
+            var i = 0;
+            
             for( var h=0; h<height; h++) {
                 for( var w=0; w<width; w++) {
-                    var i = h*height + w;
-
                     this.createBlock(i, w, h);
+                    i += 1;
                 }
             }
 
