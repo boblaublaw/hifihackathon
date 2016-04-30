@@ -8,12 +8,6 @@
     
     // These are generic functions for setting data on an object.
 
-    // FIXME fetch from a subkey of user data to support non-destructive modifications
-    function setEntityUserData(id, data) {
-        var json = JSON.stringify(data)
-        Entities.editEntity(id, { userData: json });
-    };
-
     // FIXME do non-destructive modification of the existing user data
     function getEntityUserData(id) {
         var results = null;
@@ -44,6 +38,27 @@
         return null;
     };
 
+    function setEntityUserDataEntry(id, name, value) {
+        var data = getEntityUserData(id);
+        data[name] = value;
+        var json = JSON.stringify(data)
+        Entities.editEntity(id, { userData: json });
+    };
+
+    function getEntityUserDataEntry(id, name, defaultVal) {
+        var results = getEntityUserData(id);
+        print("getEntityUserData - " + name);
+
+        if (name in results) {
+            // print("found val - " + results[name]);
+            return results[name];
+        }
+
+        print("using default val");
+
+        return defaultVal;
+    }
+
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
@@ -67,7 +82,7 @@
         setScore: function(score) {
             var data = {};
             data["score"] = score;
-            setEntityUserData(this.entityID, data);
+            setEntityUserDataEntry(this.entityID, "score", score);
 
             print("new score " + score);
         },
@@ -75,14 +90,14 @@
         getScore: function() {
             print("GameState::getScore()");
 
-            var results = getEntityUserData(this.entityID);
+            var score = getEntityUserDataEntry(this.entityID, "score", -1);
+            return score;
+            // if ("score" in results) {
+            //     print(" found score");
+            //     return results.score;
+            // }
 
-            if ("score" in results) {
-                print(" found score");
-                return results.score;
-            }
-
-            return -1;
+            // return -1;
         },
 
         clickDownOnEntity: function(entityID, mouseEvent) {
