@@ -6,12 +6,6 @@
 
 (function () {
     
-
-    // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
-    function GameState() {
-        _this = this;
-    }
-    
     // These are generic functions for setting data on an object.
 
     // FIXME fetch from a subkey of user data to support non-destructive modifications
@@ -36,6 +30,7 @@
     };
 
 
+    // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
     GameState = function() {
         _this = this;
