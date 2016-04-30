@@ -6,7 +6,7 @@
 
 (function() {
 
-    var targetScript = Script.resolvePath("./clickTest.js");
+    var targetScript = Script.resolvePath("./codeBlock.js");
 
     //
     // These are generic functions
@@ -27,13 +27,6 @@
         return null;
     };
 
-    // // FIXME fetch from a subkey of user data to support non-destructive modifications
-    // function setEntityUserData(id, data) {
-    //     var json = JSON.stringify(data)
-    //     Entities.editEntity(id, { userData: json });
-    // };
-
-    // FIXME do non-destructive modification of the existing user data
     function getEntityUserData(id) {
         var results = null;
         var properties = Entities.getEntityProperties(id, "userData");
@@ -173,30 +166,16 @@
         },
 
         setActive: function(active) {
-            // var data = {};
-            // data["active"] = active;
-            // setEntityUserData(this.entityID, data);
-
-            print("active state: " + active);
+            print("BlockSpawner::SetActive(" + active);
 
             setEntityUserDataEntry(this.entityID, "active", active);
-            setEntityUserDataEntry(this.entityID, "junk", 555);
         },
 
         isActive: function() {
-            print("isActive");
+            print("BlockSpawner::isActive()");
             var ret = getEntityUserDataEntry(this.entityID, "active", false);
-            print(ret);
+            // print(ret);
             return ret;
-            
-            // var results = getEntityUserData(this.entityID);
-
-            // if ("active" in results) {
-            //     print(" found active");
-            //     return results.active;
-            // }
-
-            // return false;
         },
 
     };
