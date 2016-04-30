@@ -6,13 +6,41 @@
 
 (function () {
 
+    this.clickDownOnEntity = function(entityID, mouseEvent) {
+        print("got click");
+    };
+    
+
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     function GameState() {
         _this = this;
     }
 
+    // FIXME fetch from a subkey of user data to support non-destructive modifications
+    function setEntityUserData(id, data) {
+        var json = JSON.stringify(data)
+        Entities.editEntity(id, { userData: json });
+    };
+
+    // FIXME do non-destructive modification of the existing user data
+    function getEntityUserData(id) {
+        var results = null;
+        var properties = Entities.getEntityProperties(id, "userData");
+        if (properties.userData) {
+            try {
+                results = JSON.parse(properties.userData);
+            } catch(err) {
+                print("err");
+                print("properties.userData");
+            }
+        }
+        return results ? results : {};
+    };
+
+
+
     var _this;
-    GameState.prototype = {
+    GameState = function() {
         _this = this;
     };
 
@@ -44,27 +72,8 @@
 
             return -1;
         },
-    }
+    };
     
-    // FIXME fetch from a subkey of user data to support non-destructive modifications
-    function setEntityUserData(id, data) {
-        var json = JSON.stringify(data)
-        Entities.editEntity(id, { userData: json });
-    };
-
-    // FIXME do non-destructive modification of the existing user data
-    function getEntityUserData(id) {
-        var results = null;
-        var properties = Entities.getEntityProperties(id, "userData");
-        if (properties.userData) {
-            try {
-                results = JSON.parse(properties.userData);
-            } catch(err) {
-                print("err");
-                print("properties.userData");
-            }
-        }
-        return results ? results : {};
-    };
-
+//    // entity scripts always need to return a newly constructed object of our type
+//    return new GameState();
 });
