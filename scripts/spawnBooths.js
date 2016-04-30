@@ -1,155 +1,54 @@
+//  Script to spawn phonebooth object
 //
-//  dice.js
-//  examples
-//
-//  Created by Philip Rosedale on February 2, 2015
-//  Persist toolbar by HRS 6/11/15.
-//  Copyright 2015 High Fidelity, Inc.
-//
-//  Press the dice button to throw some dice from the center of the screen. 
-//  Change NUMBER_OF_DICE to change the number thrown (Yahtzee, anyone?) 
+//  By Joe Boyle 
+//  Based on Cow example by Eric Levin on 3/25/16
 //
 //  Distributed under the Apache License, Version 2.0.
 //  See the accompanying file LICENSE or http://www.apache.org/licenses/LICENSE-2.0.html
 //
 
-var isDice = false;
-var NUMBER_OF_DICE = 4;
-var LIFETIME = 10000; //  Dice will live for about 3 hours
-var dice = [];
-var DIE_SIZE = 0.20;
+// references to our assets.  entity scripts need to be served from somewhere that is publically accessible -- so http(s) or atp
+var SCRIPT_URL ="https://github.com/boblaublaw/hifihackathon/raw/master/scripts/booth.js";
+var MODEL_URL = "https://github.com/boblaublaw/hifihackathon/blob/master/assets/phoneBooth.fbx?raw=true";
+var ANIMATION_URL = 'http://hifi-production.s3.amazonaws.com/tutorials/cow/cow.fbx'; // dont need this - JBB
 
-var madeSound = true; //  Set false at start of throw to look for collision
+// this part of the code describes how to center the entity in front of your avatar when it is created.
+var orientation = MyAvatar.orientation;
+orientation = Quat.safeEulerAngles(orientation);
+orientation.x = 0;
+orientation = Quat.fromVec3Degrees(orientation);
+var center = Vec3.sum(MyAvatar.getHeadPosition(), Vec3.multiply(2, Quat.getFront(orientation)));
 
-SoundCache.getSound("http://hifi-production.s3.amazonaws.com/tutorials/dice/diceCollide.wav");
-
-var INSUFFICIENT_PERMISSIONS_ERROR_MSG = "You do not have the necessary permissions to create new objects."
-
-var screenSize = Controller.getViewportDimensions();
-
-var BUTTON_SIZE = 32;
-var PADDING = 3;
-
-//a helper library for creating toolbars
-Script.include("http://hifi-production.s3.amazonaws.com/tutorials/dice/toolBars.js");
-
-var toolBar = new ToolBar(0, 0, ToolBar.HORIZONTAL, "highfidelity.dice.toolbar", function(screenSize) {
-  return {
-    x: (screenSize.x / 2 - BUTTON_SIZE * 2 + PADDING),
-    y: (screenSize.y - (BUTTON_SIZE + PADDING))
-  };
-});
-
-var offButton = toolBar.addOverlay("image", {
-  width: BUTTON_SIZE,
-  height: BUTTON_SIZE,
-  imageURL: "http://hifi-production.s3.amazonaws.com/tutorials/dice/close.png",
-  color: {
-    red: 255,
-    green: 255,
-    blue: 255
+// An entity is described and created by specifying a map of properties
+var cow = Entities.addEntity({
+  type: "Model",
+  modelURL: MODEL_URL,
+  name: "phoneBooth",
+  position: center,
+  animation: {
+    currentFrame: 278,
+    running: false,
+    url: ANIMATION_URL
   },
-  alpha: 1
-});
-
-var deleteButton = toolBar.addOverlay("image", {
-  x: screenSize.x / 2 - BUTTON_SIZE,
-  y: screenSize.y - (BUTTON_SIZE + PADDING),
-  width: BUTTON_SIZE,
-  height: BUTTON_SIZE,
-  imageURL: "http://hifi-production.s3.amazonaws.com/tutorials/dice/delete.png",
-  color: {
-    red: 255,
-    green: 255,
-    blue: 255
+  dimensions: {
+    x: 0.739,
+    y: 1.613,
+    z: 2.529
   },
-  alpha: 1
-});
-
-var diceIconURL = "http://hifi-production.s3.amazonaws.com/tutorials/dice/dice.png"
-var diceButton = toolBar.addOverlay("image", {
-  x: screenSize.x / 2 + PADDING,
-  y: screenSize.y - (BUTTON_SIZE + PADDING),
-  width: BUTTON_SIZE,
-  height: BUTTON_SIZE,
-  imageURL: diceIconURL,
-  color: {
-    red: 255,
-    green: 255,
-    blue: 255
+  dynamic: false,
+  gravity: {
+    x: 0,
+    y: -5,
+    z: 0
   },
-  alpha: 1
-});
-
-
-var GRAVITY = -3.5;
-
-// NOTE: angularVelocity is in radians/sec
-var MAX_ANGULAR_SPEED = Math.PI;
-
-
-function shootDice(position, velocity) {
-  if (!Entities.canRez()) {
-    Window.alert(INSUFFICIENT_PERMISSIONS_ERROR_MSG);
-  } else {
-    for (var i = 0; i < NUMBER_OF_DICE; i++) {
-      dice.push(Entities.addEntity({
-        type: "Model",
-        modelURL: "http://hifi-production.s3.amazonaws.com/tutorials/dice/goldDie.fbx",
-        position: position,
-        velocity: velocity,
-        rotation: Quat.fromPitchYawRollDegrees(Math.random() * 360, Math.random() * 360, Math.random() * 360),
-        angularVelocity: {
-          x: Math.random() * MAX_ANGULAR_SPEED,
-          y: Math.random() * MAX_ANGULAR_SPEED,
-          z: Math.random() * MAX_ANGULAR_SPEED
-        },
-        gravity: {
-          x: 0,
-          y: GRAVITY,
-          z: 0
-        },
-        lifetime: LIFETIME,
-        shapeType: "box",
-        dynamic: true,
-        collisionSoundURL: "http://hifi-production.s3.amazonaws.com/tutorials/dice/diceCollide.wav"
-      }));
-      position = Vec3.sum(position, Vec3.multiply(DIE_SIZE, Vec3.normalize(Quat.getRight(Camera.getOrientation()))));
+  lifetime: 3600,
+  shapeType: "box",
+  script: SCRIPT_URL,
+  userData: JSON.stringify({
+    grabbableKey: {
+      grabbable: true
     }
-  }
-}
+  })
+});
 
-function deleteDice() {
-  while (dice.length > 0) {
-    Entities.deleteEntity(dice.pop());
-  }
-}
-
-
-
-function mousePressEvent(event) {
-  var clickedText = false;
-  var clickedOverlay = Overlays.getOverlayAtPoint({
-    x: event.x,
-    y: event.y
-  });
-  if (clickedOverlay == offButton) {
-    deleteDice();
-    Script.stop();
-  } else if (clickedOverlay == deleteButton) {
-    deleteDice();
-  } else if (clickedOverlay == diceButton) {
-    var HOW_HARD = 2.0;
-    var position = Vec3.sum(Camera.getPosition(), Quat.getFront(Camera.getOrientation()));
-    var velocity = Vec3.multiply(HOW_HARD, Quat.getFront(Camera.getOrientation()));
-    shootDice(position, velocity);
-    madeSound = false;
-  }
-}
-
-function scriptEnding() {
-  toolBar.cleanup();
-}
-
-Controller.mousePressEvent.connect(mousePressEvent);
-Script.scriptEnding.connect(scriptEnding);
+Script.stop();
