@@ -193,6 +193,8 @@
 
             var num = getEntityUserDataEntry(_this.entityID, "creationCount", -1);
 
+            // have to do this so that the block number is properly handled
+            // in the setTimeout method
             for (var i=0; i<num; i++) {
                 this.resetBlock(i);
             }
