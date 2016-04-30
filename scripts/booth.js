@@ -14,7 +14,7 @@
 
 (function() {
     var _this = this;
-    print("EBL PRELOADING NEW VERSION ")
+    print("EBL PRELOADING NEW VERSION - hi joe!")
     var audioOptions = new AudioEffectOptions({
         bandwidth: 7000,
         preDelay: 20,

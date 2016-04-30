@@ -8,11 +8,8 @@
 // references to our assets.  entity scripts need to be served from somewhere that is publically accessible -- so http(s) or atp
 
 
-var SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-//SCRIPT_URL = "http://hifi-production.s3.amazonaws.com/tutorials/entity_scripts/cow.js";
-var MODEL_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/assets/phoneBooth.fbx";
-MODEL_URL = "atp:/phoneBooth.fbx";
-var ANIMATION_URL = 'http://hifi-production.s3.amazonaws.com/tutorials/cow/cow.fbx'; // dont need this - JBB
+var BOOTH_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
+var MODEL_URL = "atp:/phoneBooth.fbx";
 
 // this part of the code describes how to center the entity in front of your avatar when it is created.
 var orientation = MyAvatar.orientation;
@@ -36,8 +33,8 @@ var allThings = [];
 var roomCollisionList = "myAvatar"
 
 function addRoom() {
-
   print ("SPAWNBOOTH adding room elements");
+  // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
     type: "Box",
     name: "floor",
@@ -111,29 +108,22 @@ function addRoom() {
     lifetime: lifeTime,
     shapeType: "box"
   }];
-  
-  print("there are " + propertyList.length + " things")
+
   for (var i = 0; i < propertyList.length; i++) {
-    var thing = Entities.addEntity(propertyList[i]);
-    print ("added a thing!")
+    var properties = propertyList[i];
+    var thing = Entities.addEntity(properties);
+    print ("added " + properties['name']);
     allThings.push(thing);
     numThings += 1;
   }
 }
 
 function addBooth(i) {
-
-  var center = Vec3.sum(MyAvatar.getHeadPosition(), Vec3.multiply(2, Quat.getFront(orientation)));
   var properties = {
     type: "Model",
     modelURL: MODEL_URL,
     name: "phoneBooth" + i,
-    position: { x: i-2.5, y: 0, z:-4 },//center, //,
-    animation: {
-      currentFrame: 278,
-      running: false,
-      url: ANIMATION_URL
-    },
+    position: { x: i-2.5, y: 0, z:-4 },
     dimensions: {
       x: 1.0272,
       y: 2.3678,
@@ -148,12 +138,7 @@ function addBooth(i) {
     },
     lifetime: lifeTime,
     shapeType: "box",
-    script: SCRIPT_URL,
-    userData: JSON.stringify({
-      grabbableKey: {
-       grabbable: false
-      }
-    })
+    script: BOOTH_SCRIPT_URL
   };
 
   var booth = Entities.addEntity(properties);
