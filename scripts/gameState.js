@@ -29,6 +29,21 @@
         return results ? results : {};
     };
 
+    function findItemByName(searchingPointEntityID, itemName) {
+        // find the database entity
+        print("Looking for item: " + itemName);
+        var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*100); 
+        
+        for (var i = 0; i < entitiesInZone.length; i++) {
+            if (Entities.getEntityProperties(entitiesInZone[i]).name == itemName) {
+                print(itemName + " found! " + entitiesInZone[i]);
+                return entitiesInZone[i];
+            }
+        }
+        print("Item " + itemName + " not found");
+        return null;
+    };
+
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
@@ -73,8 +88,25 @@
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("got click");
 
+            // var score = this.getScore();
+            // this.setScore(score + 1);
+        },
+
+        dataFound: function() {
+            print("GameState::dataFound()");
+
             var score = this.getScore();
             this.setScore(score + 1);
+            score = this.getScore();
+
+            if (score === 2) {
+                print("WIN STATE!");
+            } else {
+
+                var objID = findItemByName(this.entityID, "blockSpawner");
+
+                Entities.callEntityMethod(objID, 'resetBlocks');
+            }
         },
     };
     

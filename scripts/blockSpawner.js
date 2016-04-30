@@ -188,6 +188,21 @@
             return ret;
         },
 
+
+        resetBlocks: function() {
+            print("BlockSpawner::resetBlocks()");
+
+            var num = getEntityUserDataEntry(this.entityID, "creationCount", -1);
+
+            for (var i=0; i<num; i++) {
+                var name = "block" + i;
+
+                var objID = findItemByName(this.entityID, name);
+                if (objID !== null) {
+                    Entities.callEntityMethod(objID, 'setInactive');
+                }
+            }
+        }
     };
 
     return new Spawner();

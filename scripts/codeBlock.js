@@ -33,7 +33,23 @@
         }
         print("CodeBlock::getEntityUserData() using default val");
         return defaultVal;
-    }
+    };
+
+    function findItemByName(searchingPointEntityID, itemName) {
+        // find the database entity
+        print("Looking for item: " + itemName);
+        var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*100); 
+        
+        for (var i = 0; i < entitiesInZone.length; i++) {
+            if (Entities.getEntityProperties(entitiesInZone[i]).name == itemName) {
+                print(itemName + " found! " + entitiesInZone[i]);
+                return entitiesInZone[i];
+            }
+        }
+        print("Item " + itemName + " not found");
+        return null;
+    };
+
 
     //
     // This is the meat of the object
@@ -56,10 +72,18 @@
         clickDownOnEntity: function(entityID, mouseEvent) {
 
             if (this.isTarget()) {
-                Entities.editEntity(entityID, { color: { red: 255, green: 0 , blue: 0} });
+                this.handleHacking();
             } else {
                 Entities.editEntity(entityID, { color: { red: 0, green: 0 , blue: 255} });
             }
+        },
+
+
+        handleHacking: function() {
+            Entities.editEntity(this.entityID, { color: { red: 255, green: 0 , blue: 0} });
+
+            var objID = findItemByName(this.entityID, "gameState");
+            Entities.callEntityMethod(objID, 'dataFound');
         },
 
         setTarget: function(isTarget) {
@@ -71,6 +95,11 @@
             return ret;
         },
 
+        setInactive: function() {
+            setEntityUserDataEntry(this.entityID, "hackTarget", false);
+
+            Entities.editEntity(this.entityID, { color: { red: 0, green: 255, blue: 0} });
+        },
     };
 
     return new CodeBlock();
