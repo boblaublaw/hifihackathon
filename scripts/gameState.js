@@ -5,16 +5,14 @@
 
 
 (function () {
-
-    this.clickDownOnEntity = function(entityID, mouseEvent) {
-        print("got click");
-    };
     
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     function GameState() {
         _this = this;
     }
+    
+    // These are generic functions for setting data on an object.
 
     // FIXME fetch from a subkey of user data to support non-destructive modifications
     function setEntityUserData(id, data) {
@@ -38,11 +36,13 @@
     };
 
 
-
     var _this;
     GameState = function() {
         _this = this;
     };
+
+
+    // This is the meat of the object
 
     GameState.prototype = {
 
@@ -51,13 +51,15 @@
 
             this.entityID = entityID;
 
-            setScore(0);
+            this.setScore(0);
         },
 
         setScore: function(score) {
             var data = {};
             data["score"] = score;
             setEntityUserData(this.entityID, data);
+
+            print("new score " + score);
         },
 
         getScore: function() {
@@ -72,8 +74,15 @@
 
             return -1;
         },
+
+        clickDownOnEntity: function(entityID, mouseEvent) {
+            print("got click");
+
+            var score = this.getScore();
+            this.setScore(score + 1);
+        },
     };
     
-//    // entity scripts always need to return a newly constructed object of our type
-//    return new GameState();
+   // entity scripts always need to return a newly constructed object of our type
+   return new GameState();
 });
