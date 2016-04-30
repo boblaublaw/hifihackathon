@@ -2,6 +2,8 @@
 ///
 /// Object which could or could not be the subject of the hacking search
 ///
+/// Assumes an object called "blockSpawner" and "gameState"
+///
 
 (function() {
 

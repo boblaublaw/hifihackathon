@@ -4,6 +4,14 @@
 /// which themselves have scripts attached to them
 ///
 
+// is block 0 always the target?
+var DEBUG_MODE = false;
+
+// dimensions of the play area
+var SPAWN_WIDTH = 2;
+var SPAWN_HEIGHT = 2;
+var SPAWN_DEPTH = 2;
+
 (function() {
 
     var targetScript = Script.resolvePath("./codeBlock.js");
@@ -111,8 +119,15 @@
 
             // now pick a block to be the new target
 
-            // set block 0 as the hack target
-            var objID = findItemByName(this.entityID, "block0");
+            var target;
+            if (DEBUG_MODE === true) {
+                target = "block0";
+            } else {
+                var x = Math.floor(Math.random() * num);
+                target = "block" + x;
+            }
+
+            var objID = findItemByName(this.entityID, target);
 
             // need to let the objects get set up... 
             Script.setTimeout(function() {
@@ -159,9 +174,9 @@
         createBlockWall: function() {
             print("Spawner::createBlockWall()");
 
-            var width = 2;
-            var height = 2;
-            var depth = 2;
+            var width = SPAWN_WIDTH;
+            var height = SPAWN_HEIGHT;
+            var depth = SPAWN_DEPTH;
 
             var num = width * height * depth;
 
