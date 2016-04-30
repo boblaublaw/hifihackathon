@@ -9,7 +9,7 @@
 
 
 var BOOTH_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var MODEL_URL = "atp:/phoneBooth.fbx";
+var MODEL_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/assets/phoneBooth.fbx";
 
 // this part of the code describes how to center the entity in front of your avatar when it is created.
 var orientation = MyAvatar.orientation;
@@ -119,15 +119,14 @@ function addRoom() {
 }
 
 function addBooth(i) {
-  var properties = {
-    type: "Model",
-    modelURL: MODEL_URL,
-    name: "phoneBooth" + i,
+  var boxProperties = {
+    type: "Box",
+    name: "phoneBox" + i,
     position: { x: i-2.5, y: 0, z:-4 },
     dimensions: {
-      x: 1.0272,
-      y: 2.3678,
-      z: 1.4398
+      x: 1.0,
+      y: 2.3,
+      z: 1.4
     },
     collidesWith: "",
     dynamic: false,
@@ -136,16 +135,41 @@ function addBooth(i) {
       y: 0,
       z: 0
     },
+    visible: false,
     lifetime: lifeTime,
     shapeType: "box",
     script: BOOTH_SCRIPT_URL
   };
+  var box = Entities.addEntity(boxProperties);
 
-  var booth = Entities.addEntity(properties);
-  print("SPAWNBOOTH: adding a booth!");
-  Booths.push(booth);
+  var boothProperties = {
+    type: "Model",
+    modelURL: MODEL_URL,
+    name: "phoneBoothModel" + i,
+    position: { x: i-2.5, y: 0, z:-4 },
+    dimensions: {
+      x: 1.0272,
+      y: 2.3678,
+      z: 1.4398
+    },
+    visible: true,
+    collidesWith: "",
+    dynamic: false,
+    parentId: box,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime
+  };
+  var booth = Entities.addEntity(boothProperties);
+
+  print("SPAWNBOOTH: adding a booth " + booth + " & box " + box + "!");
+  Booths.push(box);
   allThings.push(booth);
-  numThings += 1;
+  allThings.push(box);
+  numThings += 2;
 }
 
 addRoom();
