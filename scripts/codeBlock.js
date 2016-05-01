@@ -98,6 +98,10 @@
             _this.searchCubeForTarget();
         },
 
+        startNearTrigger: function() {
+            _this.searchCubeForTarget();
+        },
+
         searchCubeForTarget: function() {
             this.toggleRotationState();
 

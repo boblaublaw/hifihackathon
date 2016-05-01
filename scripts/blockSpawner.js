@@ -99,6 +99,11 @@ var BLOCK_SPACING = 2.0;
             _this.triggerSpawner();
         },
 
+        startNearTrigger: function() {
+            _this.triggerSpawner();
+        },
+
+
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("Spawner::got click()");
 
