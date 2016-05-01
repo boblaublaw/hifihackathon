@@ -8,9 +8,9 @@
 var DEBUG_MODE = false;
 
 // dimensions of the play area
-var SPAWN_WIDTH = 5;
-var SPAWN_HEIGHT = 5;
-var SPAWN_DEPTH = 3;
+var SPAWN_WIDTH = 3
+var SPAWN_HEIGHT = 3
+var SPAWN_DEPTH = 1
 
 var BLOCK_SPACING = 3.0;
 
@@ -200,7 +200,8 @@ var BLOCK_SPACING = 3.0;
         createBlock: function(num, widthOffset, heightOffset, depthOffset) {
             print("Spawner::createBlock(" + num + ")");
 
-            var xVal = -8.0 + widthOffset * BLOCK_SPACING;
+            // calculate the position of each block based on the array constants:
+            var xVal = (BLOCK_SPACING * -1 * SPAWN_WIDTH / 2) + widthOffset * BLOCK_SPACING;
             var yVal = -3.0 + heightOffset * BLOCK_SPACING;
             var zVal = 10.0 + depthOffset * BLOCK_SPACING;
             
