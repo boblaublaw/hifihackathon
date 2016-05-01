@@ -14,7 +14,7 @@ var SPAWN_DEPTH = 3;
 
 (function() {
 
-    var targetScript = Script.resolvePath("./codeBlock.js");
+    var targetScript = Script.resolvePath("https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/codeBlock.js");
 
     //
     // These are generic functions
