@@ -9,10 +9,13 @@
 
 
 var BOOTH_SCRIPT_URL =        "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
+var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js";
 var PHONEBOOTH_MODEL_URL =    "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
 var HANDSET_MODEL_URL =       "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/handset.fbx";
-var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js"
+var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js";
+
+var SHADER_WRAPPER_URL =      "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/clickshader.js";
+
 
 var CEILING_URL =             "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/ceiling.fbx";
 var FLOOR_URL =               "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/floor.fbx";
@@ -69,7 +72,8 @@ function addRoom() {
       y: 0,
       z: 0
     },
-    lifetime: lifeTime,
+      lifetime: lifeTime,
+      script: SHADER_WRAPPER_URL,
     shapeType: "box",
   },{
     type: "Box",
@@ -279,7 +283,8 @@ function addRoom() {
       y: 0,
       z: 0
     },
-    lifetime: lifeTime,
+      lifetime: lifeTime,
+      script: SHADER_WRAPPER_URL, 
     shapeType: "box"
   }];
 
