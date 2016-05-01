@@ -90,6 +90,9 @@ var BLOCK_SPACING = 2.0;
         },
 
 
+        //
+        // For Vive controllers to interact with 
+        //
         startEquip: function(id, params) {
             print("BlockSpawner::startEquip()");
             

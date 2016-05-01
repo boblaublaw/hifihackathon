@@ -82,17 +82,29 @@
             }
         },
 
+
+        //
+        // For Vive controllers to interact with 
+        //
+        startEquip: function(id, params) {
+            print("BlockSpawner::startEquip()");
+            
+            _this.searchCubeForTarget();
+        },
+
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("CodeBlock::clickDownOnEntity()");
+
+            _this.searchCubeForTarget();
+        },
+
+        searchCubeForTarget: function() {
             this.toggleRotationState();
 
             if (this.isTarget()) {
                 print("bingo!");
                 this.targetFound(); 
-           } else {
-                print("wrongo!");
-                Entities.editEntity(entityID, { color: { red: 0, green: 0 , blue: 255} });
-            }
+            } 
         },
 
         targetFound: function() {
