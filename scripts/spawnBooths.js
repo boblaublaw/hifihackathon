@@ -54,7 +54,7 @@ function addRoom() {
     position: {
 		x: -2,
 		y: 0,
-		z:1
+		z: 3.5
     },
     dimensions: {
       x: 0.3,
@@ -75,7 +75,7 @@ function addRoom() {
   },{
     type: "Box",
     name: "gameState",
-    position: { x: 0, y: 0, z:0 },
+    position: { x: 0, y: 0, z:-7 },
     dimensions: {
       x: 10,
       y: 0.1,

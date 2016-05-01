@@ -11,11 +11,12 @@ var DEBUG_MODE = false;
 var SPAWN_WIDTH = 5;
 var SPAWN_HEIGHT = 5;
 var SPAWN_DEPTH = 3;
+
 var BLOCK_SPACING = 3.0;
 
 (function() {
 
-    var targetScript = Script.resolvePath("https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/codeBlock.js");
+    var targetScript = Script.resolvePath("http://rawgit.com/boblaublaw/hifihackathon/master/scripts/codeBlock.js");
     var blueCubeURL = "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/cubeHell.fbx";
     var redCubeURL = "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/redCube.fbx";
 
@@ -146,7 +147,6 @@ var BLOCK_SPACING = 3.0;
                 if (objID !== null) {
                     Entities.callEntityMethod(objID, 'setActive');
                 }
-                
             }, 2);
         },
         

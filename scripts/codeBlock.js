@@ -7,6 +7,9 @@
 
 (function() {
 
+    var blueCubeURL = "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/cubeHell.fbx";
+    var redCubeURL = "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/redCube.fbx";
+
     function getEntityUserData(id) {
         var results = null;
         var properties = Entities.getEntityProperties(id, "userData");
@@ -73,14 +76,17 @@
 
         clickDownOnEntity: function(entityID, mouseEvent) {
             if (this.isTarget()) {
+                print("bingo!")
                 this.handleHacking();
             } else {
+                print("wrongo!")
                 Entities.editEntity(entityID, { color: { red: 0, green: 0 , blue: 255} });
             }
         },
 
 
         handleHacking: function() {
+            print("we are handleHacking!")
             Entities.editEntity(this.entityID, { color: { red: 255, green: 0 , blue: 0} });
 
             var objID = findItemByName(this.entityID, "gameState");
@@ -101,13 +107,13 @@
 
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
 
-            Entities.editEntity(this.entityID, { color: { red: 0, green: 255, blue: 0} });
+            Entities.editEntity(this.modelURL, blueModelUrl);
         },
 
+        // setActive puts each block in a "reset" state for a visual cue that the board is about to start over
         setActive: function() {
             print("CodeBlock::setActive()");
-
-            Entities.editEntity(this.entityID, { color: { red: 100, green: 100, blue: 100} });
+            //Entities.editEntity(this.modelURL, redModelUrl);
         },
     };
 

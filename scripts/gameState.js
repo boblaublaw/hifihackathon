@@ -2,8 +2,6 @@
 /// game state
 ///
 
-
-
 (function () {
     
     // These are generic functions for setting data on an object.
@@ -101,7 +99,7 @@
         },
 
         clickDownOnEntity: function(entityID, mouseEvent) {
-            print("got click");
+            print("gameState::got click");
 
             // var score = this.getScore();
             // this.setScore(score + 1);
