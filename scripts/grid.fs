@@ -17,8 +17,8 @@ vec4 getProceduralColor() {
     for (int i = 0; i < 6; ++i) {
         float modifier = pow(2, i);
         vec3 noisePosition = position * modifier;
-	noisePosition[1] *= (30+ mod(noisePosition[1], 30));
-	noisePosition[2] += time;
+	noisePosition[2] *= (30+ mod(noisePosition[1], 30));
+	noisePosition[1] += time;
 	noisePosition[0] += time;
         float noise = snoise(vec4(noisePosition, time));
         noise /= modifier;

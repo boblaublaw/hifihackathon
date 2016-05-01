@@ -7,7 +7,7 @@
 
 // references to our assets.  entity scripts need to be served from somewhere that is publically accessible -- so http(s) or atp
 
-
+var FLOOR_SCRIPT_URL =        "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/cyberfloor.js";
 var BOOTH_SCRIPT_URL =        "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
 var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js";
 var PHONEBOOTH_MODEL_URL =    "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
@@ -51,9 +51,9 @@ function addRoom() {
     modelURL: CYBERFLOOR_URL,
     name: "cyberfloor",
     position: {
-      x: 0,
-      y: -1.21,
-      z:0
+      x: 0.0169,
+      y: -1.2086,
+      z: 0.0185
     },
     color: {
       red: 0,
@@ -61,9 +61,9 @@ function addRoom() {
       blue: 255
     },
     dimensions: {
-      x: 10,
+      x: 9.9095,
       y: 0.1,
-      z: 10
+      z: 9.8972
     },
     collidesWith: roomCollisionList,
     dynamic: false,
@@ -73,7 +73,6 @@ function addRoom() {
       z: 0
     },
       lifetime: lifeTime,
-      script: SHADER_WRAPPER_URL,
     shapeType: "box",
   },{
     type: "Box",
@@ -99,7 +98,8 @@ function addRoom() {
       z: 10
     },
     collidesWith: "",
-    dynamic: false,
+      dynamic: false,
+      script: FLOOR_SCRIPT_URL,
     gravity: {
       x: 0,
       y: 0,
@@ -309,7 +309,11 @@ function addRoom() {
       type: "Model",
       modelURL: LEFTWALL_URL,
     name: "leftwall",
-    position: { x: -5, y: 0, z:0 },
+    position: {
+      x: -4.9370,
+      y: 0,
+      z: 0.3178
+    },
     dimensions: {
       x: 0.1,
       y: 3,
