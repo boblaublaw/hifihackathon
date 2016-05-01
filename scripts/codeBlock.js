@@ -88,8 +88,8 @@
 
             if (this.isTarget()) {
                 print("bingo!");
-                this.targetFound();
-            } else {
+                this.targetFound(); 
+           } else {
                 print("wrongo!");
                 Entities.editEntity(entityID, { color: { red: 0, green: 0 , blue: 255} });
             }
@@ -123,7 +123,7 @@
             print("CodeBlock::setInactive()");
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
 
-            var blockDimensions = { x: 0.5, y: 0.5, z: 0.5 };
+            var blockDimensions = { x: 1.0, y: 1.0, z: 1.0 };
             Entities.editEntity(this.entityID, { modelURL: redCubeURL, dimensions: blockDimensions });
         },
 
