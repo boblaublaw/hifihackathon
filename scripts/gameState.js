@@ -61,13 +61,19 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
         return defaultVal;
     }
 
+
+    //
+    // This function moves a given object by a certain distance in the Y plane
+    //
     function offsetY(id, name, offset) {
+        print("GameState::offsetY");
+
         var objID = findItemByName(id, name);
-        print("offsetY: Id for " + name + " is " + JSON.stringify(objID));
+        // print("offsetY: Id for " + name + " is " + JSON.stringify(objID));
         var properties = Entities.getEntityProperties(objID, "position");
-        print("offsetY: old position of floor is " + JSON.stringify(properties.position));
+        // print("offsetY: old position of floor is " + JSON.stringify(properties.position));
         properties.position.y += offset;
-        print("offsetY: new position of floor is " + JSON.stringify(properties.position));
+        // print("offsetY: new position of floor is " + JSON.stringify(properties.position));
         Entities.editEntity(objID, properties);
     }
 
@@ -160,6 +166,10 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
             _this.restoreWorld();
         },
 
+
+        //
+        // This function moves all the objects down 3 meters to reveal the 'cyberworld'
+        //        
         saveWorld: function() {
             print("GameState::saveWorld()")
             this.realWorld = false;
