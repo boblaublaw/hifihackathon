@@ -55,11 +55,9 @@
         return null;
     };
 
-
     //
     // This is the meat of the object
     //
-
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
@@ -85,55 +83,60 @@
         },
 
         clickDownOnEntity: function(entityID, mouseEvent) {
-            
+            print("CodeBlock::clickDownOnEntity()");
             this.toggleRotationState();
 
             if (this.isTarget()) {
                 print("bingo!")
-                this.handleHacking();
+                this.targetFound();
             } else {
                 print("wrongo!")
                 Entities.editEntity(entityID, { color: { red: 0, green: 0 , blue: 255} });
             }
         },
 
+        targetFound: function() {
+            print("CodeBlock::targetFound()");
+            //Entities.editEntity(this.entityID, { color: { red: 255, green: 0 , blue: 0} });
 
-        handleHacking: function() {
-            print("we are handleHacking!")
-            Entities.editEntity(this.entityID, { color: { red: 255, green: 0 , blue: 0} });
+            // temporary visual effect to indicate success:
+            Entities.editEntity(this.entityID, { visible: false });
 
             var objID = findItemByName(this.entityID, "gameState");
+            print ("we found " + objID)
             Entities.callEntityMethod(objID, 'dataFound');
         },
 
         setTarget: function(isTarget) {
+            print("CodeBlock::setTarget()");
+
             setEntityUserDataEntry(this.entityID, "hackTarget", isTarget);
         },
 
         isTarget: function() {
+            print("CodeBlock::isTarget()");
             var ret = getEntityUserDataEntry(this.entityID, "hackTarget", false);
             return ret;
         },
 
         setInactive: function() {
-            // print("CodeBlock::setInactive()");
-
+            print("CodeBlock::setInactive()");
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
-
-            Entities.editEntity(this.modelURL, blueCubeURL);
+            //Entities.editEntity(this.modelURL, blueCubeURL);
         },
-
         // setActive puts each block in a "reset" state for a visual cue that the board is about to start over
+
         setActive: function() {
-            // print("CodeBlock::setActive()");
+            print("CodeBlock::setActive()");
+            Entities.editEntity(this.entityID, { visible: true });
             //Entities.editEntity(this.modelURL, redModelUrl);
         },
-
 
         isRotating: function() {
             var ret = getEntityUserDataEntry(this.entityID, "isRotating", false);
             return ret;
         },
+
         setRotating: function(rotating) {
             setEntityUserDataEntry(_this.entityID, "isRotating", rotating);
 
@@ -156,6 +159,7 @@
 
             // print("picked: " + lastIndex);
         },
+
         toggleRotationState: function() {
             var state = false;
 
@@ -166,7 +170,6 @@
             state = true;
             _this.setRotating(state);
         },
-
 
         tryRotation: function() {
             // print("CodeBlock::tryRotation()");
