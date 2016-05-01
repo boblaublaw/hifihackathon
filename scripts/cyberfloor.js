@@ -3,7 +3,7 @@
 
     var _this;
     var clicked = false;
-	var blob = {"ProceduralEntity":{"version":2,"shaderUrl":"https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/grid.fs","uniforms":{"iSpeed":1,"iShell":10,"iWidth":0.1,"grid":1}}};
+	var blob = {"ProceduralEntity":{"version":2,"shaderUrl":"https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/grid.fs","uniforms":{"iSpeed":1,"iShell":10,"iWidth":0.4,"grid":.5}}};
 
     CyberFloor = function() {
 	_this = this;
@@ -14,7 +14,7 @@
 	preload : function(entityID) {
 	    _this.entityID = entityID;
             Entities.editEntity(entityID, { userData: (JSON.stringify(blob)) });
-	    Entities.editEntity(entityID, { color: { red: 0, green: 30 , blue: 250} });
+	    Entities.editEntity(entityID, { color: { red: 0, green: 255 , blue: 255} });
 	}
 
     };
