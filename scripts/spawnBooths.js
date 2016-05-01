@@ -34,6 +34,33 @@ function addRoom() {
   // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
     type: "Box",
+    name: "cyberfloor",
+    position: {
+      x: 0,
+      y: -1.21,
+      z:0
+    },
+    color: {
+      red: 0,
+      green: 0,
+      blue: 255
+    },
+    dimensions: {
+      x: 10,
+      y: 0.1,
+      z: 10
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box",
+  },{
+    type: "Box",
     name: "floor",
     position: {
       x: 0,
