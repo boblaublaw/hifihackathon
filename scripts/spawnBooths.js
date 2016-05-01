@@ -55,14 +55,14 @@ function addRoom() {
     modelURL: HANDSET_MODEL_URL,
     name: "blockSpawner",
     position: {
-		x: -2,
-		y: 0,
-		z: 3.5
+		x: -2.3346,
+		y: 0.2532,
+		z: -4.1333
     },
     dimensions: {
-      x: 0.3,
-      y: 0.3,
-      z: 0.3
+      x: 0.0715,
+      y: 0.2772,
+      z: 0.0696
     },
     collidesWith: roomCollisionList,
     dynamic: false,
