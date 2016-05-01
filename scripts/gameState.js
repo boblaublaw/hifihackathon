@@ -176,6 +176,11 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
 
         restoreWorld: function() {
             print("GameState::restoreWorld()")
+
+            Script.setTimeout(function() {
+                Entities.callEntityMethod(objID, 'resetBlocks');
+            }, 0);
+
             this.realWorld = true;
             for (var i = 0; i < worldItems.length; i++) {
                 offsetY(this.entityID, worldItems[i], 3);

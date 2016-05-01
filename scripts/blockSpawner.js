@@ -68,15 +68,12 @@ var BLOCK_SPACING = 2.0;
         }
 
         print("using default val");
-
         return defaultVal;
     }
-
 
     //
     // This is the meat of the object
     //
-
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
@@ -117,7 +114,6 @@ var BLOCK_SPACING = 2.0;
             }
         },
 
-
         activateWall: function() {
             var num = getEntityUserDataEntry(_this.entityID, "creationCount", -1);
 
@@ -143,7 +139,6 @@ var BLOCK_SPACING = 2.0;
             }, 1000);
         },
 
-
         activateBlock: function(i) {
             Script.setTimeout( function() {
                 var name = "block" + i;
@@ -155,7 +150,6 @@ var BLOCK_SPACING = 2.0;
             }, 2);
         },
         
-
         cleanupBlockWall: function() {
             print("Spawner::cleanupBlockWall()");
 
