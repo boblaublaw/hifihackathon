@@ -26,7 +26,7 @@ var frame = 0;
 // Array of Booths
 var Booths = [];
 var allThings = [];
-var roomCollisionList = "myAvatar,otherAvatar";
+var roomCollisionList = "static,otherAvatar,myAvatar";
 
 function addRoom() {
   print ('SPAWNBOOTH adding room elements');
@@ -69,7 +69,7 @@ function addRoom() {
       z: 0.0696
     },
     collidesWith: roomCollisionList,
-    dynamic: false,
+    dynamic: true,
     gravity: {
       x: 0,
       y: 0,
@@ -78,7 +78,12 @@ function addRoom() {
     lifetime: lifeTime,
     visible:true,
     shapeType: "box",
-    script: BLOCKSPAWNER_SCRIPT_URL
+    script: BLOCKSPAWNER_SCRIPT_URL,
+    userData: JSON.stringify({
+      grabbableKey: {
+        grabbable: true
+      }
+    })
   },{
     type: "Box",
     name: "gameState",
@@ -237,7 +242,7 @@ function addBooth(i) {
       type: "Model",
       modelURL: HANDSET_MODEL_URL,
       shapeType: "box",
-      name: "phoneBoothModel" + i,
+      name: "handsetModel" + i,
       position: {
         x: i - 2.3346,
         y: 0.2532,
@@ -249,15 +254,20 @@ function addBooth(i) {
         z: 0.0696
       },
       visible: true,
-      collidesWith: "",
-      dynamic: false,
+      collidesWith: roomCollisionList,
+      dynamic: true,
       parentId: box,
       gravity: {
         x: 0,
         y: 0,
         z: 0
       },
-      lifetime: lifeTime
+      lifetime: lifeTime,
+      userData: JSON.stringify({
+        grabbableKey: {
+          grabbable: true
+        }
+      })
     };
     var handset = Entities.addEntity(handsetProperties);
     allThings.push(handset);
