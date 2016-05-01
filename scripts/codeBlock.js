@@ -130,6 +130,13 @@
         },
         setRotating: function(rotating) {
             setEntityUserDataEntry(this.entityID, "isRotating", rotating);
+
+            // randomly pick what direction we want this to rotate in and STORE it
+            var x = Math.floor(Math.random() * 3);
+            var axes = [Vec3.UNIT_X, Vec3.UNIT_Y, Vec3.UNIT_Z];
+            var targ = axes[x];
+
+            setEntityUserDataEntry(this.entityID, "targVector", targ);
         },
         toggleRotationState: function() {
             var state = false;
@@ -143,21 +150,21 @@
 
 
         tryRotation: function() {
-            print("CodeBlock::tryRotation()");
+            // print("CodeBlock::tryRotation()");
 
             if (!_this.isRotating()) {
                 return;
             }
-            
-            // UNIT_X - vec3
-            // UNIT_Y - vec3
-   
-            var properties = Entities.getEntityProperties(_this.entityID, ["position", "rotation"]);
 
-            var rotation = Quat.rotationBetween(Vec3.UNIT_Z, Vec3.UNIT_X);
-
-            Entities.editEntity(_this.entityID, 
-                                {rotation: Quat.mix(properties.rotation, rotation, 0.1)});
+            // pull the stored vector for the direction we are going to rotate
+            var targ = getEntityUserDataEntry(_this.entityID, "targVector", null);
+            if (targ !== null) {
+                print("boom");
+                var rotation = Quat.rotationBetween(Vec3.UNIT_Z, targ);
+                var properties = Entities.getEntityProperties(_this.entityID, ["rotation"]);
+                Entities.editEntity(_this.entityID, 
+                                    {rotation: Quat.mix(properties.rotation, rotation, 0.1)});
+            }
         },
     };
 
