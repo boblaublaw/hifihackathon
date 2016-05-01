@@ -84,9 +84,9 @@ function addRoom() {
     name: "gameState",
     position: { x: 0, y: 0, z:-7 },
     dimensions: {
-      x: 10,
-      y: 0.1,
-      z: 10
+      x: 1,
+      y: 1,
+      z: 1
     },
     visible:false,
     collidesWith: "",
