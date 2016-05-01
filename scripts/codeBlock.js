@@ -97,10 +97,9 @@
 
         targetFound: function() {
             print("CodeBlock::targetFound() starting");
-            //Entities.editEntity(this.entityID, { color: { red: 255, green: 0 , blue: 0} });
 
             // temporary visual effect to indicate success:
-            Entities.editEntity(this.entityID, { visible: false });
+            // Entities.editEntity(this.entityID, { visible: false });
 
             var objID = findItemByName(this.entityID, "gameState");
             print ("we found " + objID);
@@ -123,14 +122,20 @@
         setInactive: function() {
             print("CodeBlock::setInactive()");
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
-            //Entities.editEntity(this.modelURL, blueCubeURL);
-        },
-        // setActive puts each block in a "reset" state for a visual cue that the board is about to start over
 
+            var blockDimensions = { x: 0.5, y: 0.5, z: 0.5 };
+            Entities.editEntity(this.entityID, { modelURL: redCubeURL, dimensions: blockDimensions });
+        },
+
+        //
+        // setActive puts each block in a "reset" state for a visual cue that the board is about to start over
+        // 
         setActive: function() {
             print("CodeBlock::setActive()");
             Entities.editEntity(this.entityID, { visible: true });
-            //Entities.editEntity(this.modelURL, redModelUrl);
+
+            var blockDimensions = { x: 2.0, y: 2.0, z: 2.0 };
+            Entities.editEntity(this.entityID, { modelURL: blueCubeURL, dimensions: blockDimensions });
         },
 
         isRotating: function() {
