@@ -51,9 +51,9 @@ function addRoom() {
     modelURL: CYBERFLOOR_URL,
     name: "cyberfloor",
     position: {
-      x: 0,
-      y: -1.21,
-      z:0
+      x: 0.0169,
+      y: -1.2086,
+      z: 0.0185
     },
     color: {
       red: 0,
@@ -61,9 +61,9 @@ function addRoom() {
       blue: 255
     },
     dimensions: {
-      x: 10,
+      x: 9.9095,
       y: 0.1,
-      z: 10
+      z: 9.8972
     },
     collidesWith: roomCollisionList,
     dynamic: false,
@@ -309,7 +309,11 @@ function addRoom() {
       type: "Model",
       modelURL: LEFTWALL_URL,
     name: "leftwall",
-    position: { x: -5, y: 0, z:0 },
+    position: {
+      x: -4.9370,
+      y: 0,
+      z: 0.3178
+    },
     dimensions: {
       x: 0.1,
       y: 3,
