@@ -20,7 +20,7 @@ var CEILING_URL =             "https://dl.dropboxusercontent.com/u/16918424/hifi
 var FLOOR_URL =               "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/floor.fbx";
 var FRONTWALL_URL =           "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/frontWall.fbx";
 var REARWALL_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/rearWall.fbx";
-var LEFTWALL_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/ceiling.fbx";
+var LEFTWALL_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/leftWall.fbx";
 var RIGHTWALL_URL =           "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/rightWall.fbx";
 
 var GARBAGE_CAN_URL =         "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/garbageCan.fbx";
@@ -225,7 +225,8 @@ function addRoom() {
     lifetime: lifeTime,
     shapeType: "box",
   },{
-    type: "Box",
+      type: "Box",
+      modelURL: CEILING_URL,
     name: "ceiling",
     position: { x: 0, y: 1.5, z:0 },
     dimensions: {
@@ -233,23 +234,25 @@ function addRoom() {
       y: 0.1,
       z: 10
     },
-    collidesWith: "",
+    collidesWith: roomCollisionList,
     dynamic: false,
     gravity: {
       x: 0,
       y: 0,
       z: 0
     },
-    lifetime: lifeTime,
+      lifetime: lifeTime,
+//      script: SHADER_WRAPPER_URL, 
     shapeType: "box"
   },{
-    type: "Box",
+      type: "Model",
+      modelURL: RIGHTWALL_URL,
     name: "rightwall",
     position: { x: 5.0, y: 0, z:0 },
-    dimensions: {
-      x: 0.1,
-      y: 3,
-      z: 10
+      dimensions: {
+	  x: 0.1,
+	  y: 3,
+	  z: 10
     },
     collidesWith: roomCollisionList,
     dynamic: false,
@@ -303,7 +306,8 @@ function addRoom() {
     lifetime: lifeTime,
     shapeType: "box"
   }, {
-    type: "Box",
+      type: "Model",
+      modelURL: LEFTWALL_URL,
     name: "leftwall",
     position: { x: -5, y: 0, z:0 },
     dimensions: {
