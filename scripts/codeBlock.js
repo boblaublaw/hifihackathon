@@ -123,7 +123,7 @@
             print("CodeBlock::setInactive()");
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
 
-            var blockDimensions = { x: 1.0, y: 1.0, z: 1.0 };
+            var blockDimensions = { x: .5, y: .5, z: .5 };
             Entities.editEntity(this.entityID, { modelURL: redCubeURL, dimensions: blockDimensions });
         },
 
@@ -134,7 +134,7 @@
             print("CodeBlock::setActive()");
             Entities.editEntity(this.entityID, { visible: true });
 
-            var blockDimensions = { x: 2.0, y: 2.0, z: 2.0 };
+            var blockDimensions = { x: 1.85, y: 1.85, z: 1.85 };
             Entities.editEntity(this.entityID, { modelURL: blueCubeURL, dimensions: blockDimensions });
         },
 
