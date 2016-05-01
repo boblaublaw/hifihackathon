@@ -22,12 +22,12 @@ var SPAWN_DEPTH = 3;
 
     function findItemByName(searchingPointEntityID, itemName) {
         // find the database entity
-        print("Looking for item: " + itemName);
+        // print("Looking for item: " + itemName);
         var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*100); 
         
         for (var i = 0; i < entitiesInZone.length; i++) {
             if (Entities.getEntityProperties(entitiesInZone[i]).name == itemName) {
-                print(itemName + " found! " + entitiesInZone[i]);
+                // print(itemName + " found! " + entitiesInZone[i]);
                 return entitiesInZone[i];
             }
         }
@@ -58,7 +58,7 @@ var SPAWN_DEPTH = 3;
 
     function getEntityUserDataEntry(id, name, defaultVal) {
         var results = getEntityUserData(id);
-        print("getEntityUserData - " + name);
+        // print("getEntityUserData - " + name);
 
         if (name in results) {
             // print("found val - " + results[name]);
@@ -95,6 +95,13 @@ var SPAWN_DEPTH = 3;
             print("Spawner::got click()");
 
             if (!this.isActive()) {
+                // Tell the gameState object that we've started another game
+                // It is up to the gameState to tell if we already have a game running or not
+                Script.setTimeout(function() {
+                    var objID = findItemByName(_this.entityID, "gameState");
+                    Entities.callEntityMethod(objID, "gameStart");
+                }, 5);
+
                 this.createBlockWall();
 
                 this.setActive(true);
@@ -139,7 +146,7 @@ var SPAWN_DEPTH = 3;
         activateBlock: function(i) {
             Script.setTimeout( function() {
                 var name = "block" + i;
-                print(name);
+                // print(name);
                 var objID = findItemByName(_this.entityID, name);
                 if (objID !== null) {
                     Entities.callEntityMethod(objID, 'setActive');

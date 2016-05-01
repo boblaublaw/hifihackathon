@@ -39,12 +39,12 @@
 
     function findItemByName(searchingPointEntityID, itemName) {
         // find the database entity
-        print("Looking for item: " + itemName);
+        // print("Looking for item: " + itemName);
         var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*100); 
         
         for (var i = 0; i < entitiesInZone.length; i++) {
             if (Entities.getEntityProperties(entitiesInZone[i]).name == itemName) {
-                print(itemName + " found! " + entitiesInZone[i]);
+                // print(itemName + " found! " + entitiesInZone[i]);
                 return entitiesInZone[i];
             }
         }
@@ -67,7 +67,7 @@
     CodeBlock.prototype = {
 
         preload: function(entityID) {
-            print("CodeBlock::preload()");
+            // print("CodeBlock::preload()");
             this.entityID = entityID;
 
             var timeoutID = Script.setInterval(this.tryRotation, 100);
@@ -110,7 +110,7 @@
         },
 
         setInactive: function() {
-            print("CodeBlock::setInactive()");
+            // print("CodeBlock::setInactive()");
 
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
 
@@ -118,7 +118,7 @@
         },
 
         setActive: function() {
-            print("CodeBlock::setActive()");
+            // print("CodeBlock::setActive()");
 
             Entities.editEntity(this.entityID, { color: { red: 100, green: 100, blue: 100} });
         },

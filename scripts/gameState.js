@@ -2,7 +2,7 @@
 /// game state
 ///
 
-
+var GAME_TIME_SECONDS = 5;
 
 (function () {
     
@@ -92,21 +92,64 @@
 
             var score = getEntityUserDataEntry(this.entityID, "score", -1);
             return score;
-            // if ("score" in results) {
-            //     print(" found score");
-            //     return results.score;
-            // }
-
-            // return -1;
         },
 
         clickDownOnEntity: function(entityID, mouseEvent) {
-            print("got click");
-
-            // var score = this.getScore();
-            // this.setScore(score + 1);
+            print("GameState::got click()");
         },
 
+
+        //
+        // starts the timer for the game
+        //
+        gameStart: function() {
+            print("GameState::gameStart()");
+
+            // see if we already have a game running
+            var running = getEntityUserDataEntry(_this.entityID, "gameStarted", false);
+            if (running === true) {
+                return;
+            }
+            setEntityUserDataEntry(_this.entityID, "gameStarted", true);
+            
+            
+            // just call this function in the future
+            var timeoutID = Script.setTimeout(_this.gameEnd, GAME_TIME_SECONDS * 1000);
+            setEntityUserDataEntry(_this.entityID, "timeoutID", timeoutID);
+        },
+
+
+        gameEnd: function() {
+            print("GameState::gameEnd()");
+            setEntityUserDataEntry(_this.entityID, "gameStarted", false);
+
+            _this.gameLost();
+        },
+
+
+        // called when players WIN the game
+        gameWon: function() {
+            print("GameState::gameWon");
+            var timeoutID = getEntityUserDataEntry(this.entityID, "timeoutID", null);
+            if (timeoutID !== null) {
+                Script.clearInterval(timeoutID);
+            }
+
+            print("A WINNER IS YOU!");
+        },
+
+        // called when players lose the game
+        gameLost: function() {
+            print("GameState::game  ----Lost---");
+            
+
+            print("GAME OVER MAN, GAME OVER");
+        },
+
+        
+        //
+        // Gets called when the users 'win the game' and find the cube with the data
+        //
         dataFound: function() {
             print("GameState::dataFound()");
 
@@ -117,7 +160,7 @@
             print(score);
             
             // if (score === 2) {
-            //     print("WIN STATE!");
+            //     _this.gameWon();
             // } else {
 
                 var objID = findItemByName(this.entityID, "blockSpawner");
