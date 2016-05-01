@@ -8,9 +8,10 @@
 var DEBUG_MODE = false;
 
 // dimensions of the play area
-var SPAWN_WIDTH = 3;
-var SPAWN_HEIGHT = 3;
+var SPAWN_WIDTH = 5;
+var SPAWN_HEIGHT = 5;
 var SPAWN_DEPTH = 3;
+var BLOCK_SPACING = 3.0;
 
 (function() {
 
@@ -199,12 +200,12 @@ var SPAWN_DEPTH = 3;
         createBlock: function(num, widthOffset, heightOffset, depthOffset) {
             print("Spawner::createBlock(" + num + ")");
 
-            var xVal = 0 + widthOffset * 0.5;
-            var yVal = 0 + heightOffset * 0.5;
-            var zVal = 0 + depthOffset * 0.5;
+            var xVal = -8.0 + widthOffset * BLOCK_SPACING;
+            var yVal = -3.0 + heightOffset * BLOCK_SPACING;
+            var zVal = 10.0 + depthOffset * BLOCK_SPACING;
             
             var blockPosition = { x: xVal, y: yVal, z: zVal}; 
-            var blockDimensions = { x: 0.2, y: 0.2, z: 0.2 };
+            var blockDimensions = { x: 1.0, y: 1.0, z: 1.0 };
 
             var blockID = Entities.addEntity({
                 type: "Model",
