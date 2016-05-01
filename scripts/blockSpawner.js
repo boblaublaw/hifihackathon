@@ -201,8 +201,9 @@ var BLOCK_SPACING = 3.0;
             print("Spawner::createBlock(" + num + ")");
 
             // calculate the position of each block based on the array constants:
-            var xVal = (BLOCK_SPACING * -1 * SPAWN_WIDTH / 2) + widthOffset * BLOCK_SPACING;
-            var yVal = -3.0 + heightOffset * BLOCK_SPACING;
+            var xVal = (BLOCK_SPACING * -1 * SPAWN_WIDTH / 2) + (widthOffset * BLOCK_SPACING);
+            var yVal = (BLOCK_SPACING * -1 * SPAWN_HEIGHT / 2 ) + (heightOffset * BLOCK_SPACING) + 1.5;
+            // Z vals are hand tuned:
             var zVal = 10.0 + depthOffset * BLOCK_SPACING;
             
             var blockPosition = { x: xVal, y: yVal, z: zVal}; 

@@ -8,9 +8,10 @@
 // references to our assets.  entity scripts need to be served from somewhere that is publically accessible -- so http(s) or atp
 
 
-var BOOTH_SCRIPT_URL =  "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var GAMESTATE_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
-var MODEL_URL =         "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
+var BOOTH_SCRIPT_URL =        "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
+var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
+var PHONEBOOTH_MODEL_URL =    "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
+var HANDSET_MODEL_URL =       "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/handset.fbx";
 var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js"
 
 print("SPAWNBOOTH START");
@@ -29,6 +30,7 @@ var roomCollisionList = "myAvatar,otherAvatar";
 
 function addRoom() {
   print ('SPAWNBOOTH adding room elements joe');
+
   // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
     type: "Box",
@@ -49,7 +51,8 @@ function addRoom() {
     lifetime: lifeTime,
     shapeType: "box",
   },{
-    type: "Box",
+    type: "Model",
+    modelURL: HANDSET_MODEL_URL,
     name: "blockSpawner",
     position: {
 		x: -2,
@@ -201,7 +204,8 @@ function addBooth(i) {
 
   var boothProperties = {
     type: "Model",
-    modelURL: MODEL_URL,
+    modelURL: PHONEBOOTH_MODEL_URL,
+    shapeType: "box",
     name: "phoneBoothModel" + i,
     position: { x: i-2.5, y: 0, z:-4 },
     dimensions: {
