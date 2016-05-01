@@ -64,10 +64,12 @@
     }*/
 
     print ("booth.js (re)loaded");
+
+
     _this.enterEntity = function(entityID) {
       print(MyAvatar.sessionUUID + ' is inside ' + entityID);
       _this.occupant = MyAvatar.sessionUUID;
-      MyAvatar.position = {"x":0,"y":0,"z":0};
+      //MyAvatar.position = {"x":0,"y":0,"z":0};
       // create a slider for each parameter
 /*      AudioDevice.setReverbOptions(audioOptions);
       AudioDevice.setReverb(true);*/
