@@ -248,6 +248,8 @@ var BLOCK_SPACING = 2.0;
                 dynamic: false
             });
 
+            setEntityUserDataEntry(blockID, 'grabbableKey', { wantsTrigger: true });
+
             return blockID;
         },
 
