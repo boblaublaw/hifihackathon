@@ -2,7 +2,7 @@
 /// game state
 ///
 
-var GAME_TIME_SECONDS = 500000;
+var GAME_TIME_SECONDS = 20;
 var WINS_NEEDED = 2;
 
 (function () {
@@ -76,8 +76,9 @@ var WINS_NEEDED = 2;
             print("GameState::preload()");
 
             this.entityID = entityID;
-            this.realWorld = true;
             this.setScore(0);
+            this.timerID = null;
+            this.realWorld = true;
         },
 
         setScore: function(score) {
@@ -106,6 +107,8 @@ var WINS_NEEDED = 2;
             print("GameState::gameStart()");
 
             if (this.realWorld) {
+                // puzzle beginning, turn off reality so virtual reality appears:
+                this.realWorld = false;
                 print ("time to make our world go away!")
             }
 
@@ -118,7 +121,8 @@ var WINS_NEEDED = 2;
             
             // just call this function in the future
             var timeoutID = Script.setTimeout(_this.gameLost, GAME_TIME_SECONDS * 1000);
-            setEntityUserDataEntry(_this.entityID, "timeoutID", timeoutID);
+            this.timeoutID = timeoutID;
+            //setEntityUserDataEntry(_this.entityID, "timeoutID", timeoutID);
         },
 
         gameLost: function() {
@@ -131,28 +135,28 @@ var WINS_NEEDED = 2;
         // called when players WIN the game
         gameWon: function() {
             print("GameState::gameWon");
-            var timeoutID = getEntityUserDataEntry(this.entityID, "timeoutID", null);
-            if (timeoutID !== null) {
-                Script.clearInterval(timeoutID);
+            if (_this.timeoutID !== null) {
+                print("attempting to cancel 2 " + _this.timeoutID);
+                Script.clearInterval(_this.timeoutID);
             }
 
             print("A WINNER IS YOU!");
-            this.gameEnd();
+            _this.gameEnd();
         },
 
         // called when players lose the game
         gameLost: function() {
             print("GameState::gameLost");
             print("GAME OVER MAN, GAME OVER");
-            this.gameEnd();
+            _this.gameEnd();
         },
 
-        // called after either gameWon or gameLost
+        // called whether they win or lose:
         gameEnd: function() {
-            print("GameState::gameEnd");
             print ("time to bring the world back");
+            this.realWorld = true;
         },
-        
+
         //
         // Gets called when the users 'win the game' and find the cube with the data
         //
