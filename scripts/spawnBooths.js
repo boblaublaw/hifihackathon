@@ -9,10 +9,25 @@
 
 
 var BOOTH_SCRIPT_URL =        "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
+var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js";
 var PHONEBOOTH_MODEL_URL =    "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
 var HANDSET_MODEL_URL =       "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/handset.fbx";
-var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js"
+var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js";
+
+var SHADER_WRAPPER_URL =      "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/clickshader.js";
+
+
+var CEILING_URL =             "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/ceiling.fbx";
+var FLOOR_URL =               "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/floor.fbx";
+var FRONTWALL_URL =           "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/frontWall.fbx";
+var REARWALL_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/rearWall.fbx";
+var LEFTWALL_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/ceiling.fbx";
+var RIGHTWALL_URL =           "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/rightWall.fbx";
+
+var GARBAGE_CAN_URL =         "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/garbageCan.fbx";
+var PILLAR_A_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/pillarA.fbx";
+var PILLAR_B_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/pillarB.fbx";
+var PILLAR_C_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/pillarC.fbx";
 
 print("SPAWNBOOTH START");
 
@@ -57,10 +72,12 @@ function addRoom() {
       y: 0,
       z: 0
     },
-    lifetime: lifeTime,
+      lifetime: lifeTime,
+      script: SHADER_WRAPPER_URL,
     shapeType: "box",
   },{
     type: "Box",
+    //modelURL: FLOOR_URL,
     name: "floor",
     position: {
       x: 0,
@@ -132,6 +149,52 @@ function addRoom() {
     shapeType: "box",
     script: GAMESTATE_SCRIPT_URL
   },{
+    type: "Model",
+    modelURL: GARBAGE_CAN_URL,
+    name: "garbageCan",
+    position: {
+      x: 4.1392,
+      y: -0.6824,
+      z:-3.8185
+    },
+    dimensions: {
+      x: 0.6711,
+      y: 1.0791,
+      z: 0.7145
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box",
+  },{
+    type: "Model",
+    modelURL: PILLAR_A_URL,
+    name: "pillarA",
+    position: {
+      x: 2.8223,
+      y: 0.6432,
+      z: 2.9537
+    },
+    dimensions: {
+      x: 1.0489,
+      y: 3.65641,
+      z: 1.1836
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box",
+  },{
     type: "Box",
     name: "ceiling",
     position: { x: 0, y: 1.5, z:0 },
@@ -168,7 +231,8 @@ function addRoom() {
     lifetime: lifeTime,
     shapeType: "box"
   }, {
-    type: "Box",
+    type: "Model",
+    modelURL: REARWALL_URL,
     name: "gamewall",
     position: { x: 0, y: 0, z:4.9 },
     dimensions: {
@@ -219,7 +283,8 @@ function addRoom() {
       y: 0,
       z: 0
     },
-    lifetime: lifeTime,
+      lifetime: lifeTime,
+      script: SHADER_WRAPPER_URL, 
     shapeType: "box"
   }];
 
