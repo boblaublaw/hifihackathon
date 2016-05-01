@@ -9,7 +9,9 @@
 
 
 var BOOTH_SCRIPT_URL =  "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
+var GAMESTATE_SCRIPT_URL = "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
 var MODEL_URL =         "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
+var BLOCKSPAWNER_SCRIPT_URL = "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js"
 
 print("SPAWNBOOTH START");
 
@@ -38,6 +40,50 @@ function addRoom() {
       z: 10
     },
     collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box",
+    script: GAMESTATE_SCRIPT_URL
+  },{
+    type: "Box",
+    name: "blockSpawner",
+    position: {
+		x: -2,
+		y: 0,
+		z:1
+    },
+    dimensions: {
+      x: 0.3,
+      y: 0.3,
+      z: 0.3
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    visible:true,
+    shapeType: "box",
+    script: BLOCKSPAWNER_SCRIPT_URL
+  },{
+    type: "Box",
+    name: "gameState",
+    position: { x: 0, y: 0, z:0 },
+    dimensions: {
+      x: 10,
+      y: 0.1,
+      z: 10
+    },
+    visible:false,
+    collidesWith: "",
     dynamic: false,
     gravity: {
       x: 0,
@@ -183,6 +229,7 @@ function addBooth(i) {
   numThings += 2;
 }
 
+
 addRoom();
 
 // Generate the Booths
@@ -196,10 +243,10 @@ function updateBooths(deltaTime) {
   // Only update every third frame because we don't need to do it too quickly
   if ((frame % 300) == 0) {
     // Update all the Booths
-    print ('this is the update check!');
+/*    print ('this is the update check!');
     for (var i = 0; i < numBooths; i++) {
       print (Booths[i].occupant + " is in me");
-    }
+    }*/
   }
   // Check to see if we've been running long enough that our Booths are dead
   var nowTimeInSeconds = new Date().getTime() / 1000;
