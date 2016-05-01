@@ -148,7 +148,7 @@
             setEntityUserDataEntry(_this.entityID, "orgVector", lastVec);
             setEntityUserDataEntry(_this.entityID, "targVector", nextVec);
 
-            print("picked: " + lastIndex);
+            // print("picked: " + lastIndex);
         },
         toggleRotationState: function() {
             var state = false;
@@ -172,7 +172,7 @@
             // pull the stored vector for the direction we are going to rotate
             var from = getEntityUserDataEntry(_this.entityID, "orgVector", null);
             var targ = getEntityUserDataEntry(_this.entityID, "targVector", null);
-            if (targ !== null) {
+            if ((from !== null) && (targ !== null)) {
                 var rotation = Quat.rotationBetween(from, targ);
                 var properties = Entities.getEntityProperties(_this.entityID, ["rotation"]);
                 Entities.editEntity(_this.entityID, 
