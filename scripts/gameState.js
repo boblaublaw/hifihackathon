@@ -2,7 +2,7 @@
 /// game state
 ///
 
-var GAME_TIME_SECONDS = 5;
+var GAME_TIME_SECONDS = 500000;
 
 (function () {
     

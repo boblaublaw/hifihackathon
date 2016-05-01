@@ -26,7 +26,7 @@ var BLOCK_SPACING = 3.0;
     function findItemByName(searchingPointEntityID, itemName) {
         // find the database entity
         // print("Looking for item: " + itemName);
-        var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*100); 
+        var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*1000); 
         
         for (var i = 0; i < entitiesInZone.length; i++) {
             if (Entities.getEntityProperties(entitiesInZone[i]).name == itemName) {
