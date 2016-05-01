@@ -9,8 +9,7 @@
 
 
 var BOOTH_SCRIPT_URL =  "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var MODEL_URL =         "http://rawgit.com/boblaublaw/hifihackathon/master/assets/phoneBooth.fbx";
-
+var MODEL_URL =         "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
 
 print("SPAWNBOOTH START");
 
@@ -24,10 +23,10 @@ var frame = 0;
 // Array of Booths
 var Booths = [];
 var allThings = [];
-var roomCollisionList = "myAvatar";
+var roomCollisionList = "myAvatar,otherAvatar";
 
 function addRoom() {
-  print ('SPAWNBOOTH adding room elements');
+  print ('SPAWNBOOTH adding room elements joe');
   // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
     type: "Box",
