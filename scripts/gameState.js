@@ -3,6 +3,7 @@
 ///
 
 var GAME_TIME_SECONDS = 500000;
+var WINS_NEEDED = 2;
 
 (function () {
     
@@ -75,7 +76,7 @@ var GAME_TIME_SECONDS = 500000;
             print("GameState::preload()");
 
             this.entityID = entityID;
-
+            this.realWorld = true;
             this.setScore(0);
         },
 
@@ -98,12 +99,15 @@ var GAME_TIME_SECONDS = 500000;
             print("GameState::got click()");
         },
 
-
         //
         // starts the timer for the game
         //
         gameStart: function() {
             print("GameState::gameStart()");
+
+            if (this.realWorld) {
+                print ("time to make our world go away!")
+            }
 
             // see if we already have a game running
             var running = getEntityUserDataEntry(_this.entityID, "gameStarted", false);
@@ -112,20 +116,17 @@ var GAME_TIME_SECONDS = 500000;
             }
             setEntityUserDataEntry(_this.entityID, "gameStarted", true);
             
-            
             // just call this function in the future
-            var timeoutID = Script.setTimeout(_this.gameEnd, GAME_TIME_SECONDS * 1000);
+            var timeoutID = Script.setTimeout(_this.gameLost, GAME_TIME_SECONDS * 1000);
             setEntityUserDataEntry(_this.entityID, "timeoutID", timeoutID);
         },
 
-
-        gameEnd: function() {
-            print("GameState::gameEnd()");
+        gameLost: function() {
+            print("GameState::gameLost()");
             setEntityUserDataEntry(_this.entityID, "gameStarted", false);
 
             _this.gameLost();
         },
-
 
         // called when players WIN the game
         gameWon: function() {
@@ -136,16 +137,21 @@ var GAME_TIME_SECONDS = 500000;
             }
 
             print("A WINNER IS YOU!");
+            this.gameEnd();
         },
 
         // called when players lose the game
         gameLost: function() {
-            print("GameState::game  ----Lost---");
-            
-
+            print("GameState::gameLost");
             print("GAME OVER MAN, GAME OVER");
+            this.gameEnd();
         },
 
+        // called after either gameWon or gameLost
+        gameEnd: function() {
+            print("GameState::gameEnd");
+            print ("time to bring the world back");
+        },
         
         //
         // Gets called when the users 'win the game' and find the cube with the data
@@ -159,17 +165,16 @@ var GAME_TIME_SECONDS = 500000;
 
             print(score);
             
-            // if (score === 2) {
-            //     _this.gameWon();
-            // } else {
-
+            if (score === WINS_NEEDED) {
+                _this.gameWon();
+            } else {
                 var objID = findItemByName(this.entityID, "blockSpawner");
                 print(JSON.stringify(objID));
 
                 Script.setTimeout(function() {
                     Entities.callEntityMethod(objID, 'resetBlocks');
                 }, 0);
-            // }
+            }
         },
     };
     
