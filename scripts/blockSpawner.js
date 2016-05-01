@@ -8,13 +8,16 @@
 var DEBUG_MODE = false;
 
 // dimensions of the play area
-var SPAWN_WIDTH = 3;
-var SPAWN_HEIGHT = 3;
-var SPAWN_DEPTH = 3;
+var SPAWN_WIDTH = 1;
+var SPAWN_HEIGHT = 1;
+var SPAWN_DEPTH = 1;
 
 (function() {
 
     var targetScript = Script.resolvePath("https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/codeBlock.js");
+    var blueCubeURL = "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/cubeHell.fbx";
+    var redCubeURL = "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/redCube.fbx";
+    var phoneboothURL = "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
 
     //
     // These are generic functions
@@ -203,14 +206,16 @@ var SPAWN_DEPTH = 3;
             var zVal = 0 + depthOffset * 0.5;
             
             var blockPosition = { x: xVal, y: yVal, z: zVal}; 
-            var blockDimensions = { x: .2, y: .2, z: .2 };
+            var blockDimensions = { x: 1, y: 1, z: 1 };
 
             var blockID = Entities.addEntity({
-                type: "Box",
+                type: "Model",
+                modelURL: blueCubeURL,
+                shapeType: "box",
                 name: "block" + num,
                 position: blockPosition,
                 dimensions: blockDimensions,
-                color: { red: 150, green: 150, blue: 150},
+                //color: { red: 150, green: 150, blue: 150},
                 script: targetScript,
                 dynamic: false
             });

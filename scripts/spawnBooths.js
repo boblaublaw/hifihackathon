@@ -9,9 +9,9 @@
 
 
 var BOOTH_SCRIPT_URL =  "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var GAMESTATE_SCRIPT_URL = "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
+var GAMESTATE_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
 var MODEL_URL =         "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
-var BLOCKSPAWNER_SCRIPT_URL = "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js"
+var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js"
 
 print("SPAWNBOOTH START");
 
@@ -48,7 +48,6 @@ function addRoom() {
     },
     lifetime: lifeTime,
     shapeType: "box",
-    script: GAMESTATE_SCRIPT_URL
   },{
     type: "Box",
     name: "blockSpawner",
@@ -91,7 +90,8 @@ function addRoom() {
       z: 0
     },
     lifetime: lifeTime,
-    shapeType: "box"
+    shapeType: "box",
+    script: GAMESTATE_SCRIPT_URL
   },{
     type: "Box",
     name: "ceiling",
