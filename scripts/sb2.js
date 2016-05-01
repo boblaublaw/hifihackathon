@@ -9,13 +9,13 @@
 
 
 var BOOTH_SCRIPT_URL =        "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js";
+var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js"
 var PHONEBOOTH_MODEL_URL =    "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
 var HANDSET_MODEL_URL =       "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/handset.fbx";
 var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/blockSpawner.js";
 
-var SHADER_WRAPPER_URL =      "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/clickshader.js";
 var CYBERFLOOR_URL =          "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/cyberFloor7.fbx";
+
 var CEILING_URL =             "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/ceiling.fbx";
 var FLOOR_URL =               "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/floor.fbx";
 var FRONTWALL_URL =           "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/frontWall.fbx";
@@ -62,7 +62,7 @@ function addRoom() {
     },
     dimensions: {
       x: 10,
-      y: 0.1,
+      y: 0.01,
       z: 10
     },
     collidesWith: roomCollisionList,
@@ -72,8 +72,7 @@ function addRoom() {
       y: 0,
       z: 0
     },
-      lifetime: lifeTime,
-      script: SHADER_WRAPPER_URL,
+    lifetime: lifeTime,
     shapeType: "box",
   },{
     type: "Box",
@@ -104,7 +103,9 @@ function addRoom() {
       x: 0,
       y: 0,
       z: 0
-    }
+    },
+    lifetime: lifeTime,
+    shapeType: "box",
   },{
     type: "Box",
     //modelURL: FLOOR_URL,
@@ -207,12 +208,35 @@ function addRoom() {
     name: "pillarA",
     position: {
       x: 2.8223,
-      y: 0.0799,
+      y: 0.1073,
       z: 2.9537
     },
     dimensions: {
       x: 1.0489,
-      y: 2.8127,
+      y: 2.6406,
+      z: 1.1836
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box",
+  },{
+    type: "Model",
+    modelURL: PILLAR_B_URL,
+    name: "pillarB",
+    position: {
+      x: -1.7620,
+      y: 0.1073,
+      z: 2.9537
+    },
+    dimensions: {
+      x: 1.0489,
+      y: 2.6406,
       z: 1.1836
     },
     collidesWith: roomCollisionList,
@@ -313,8 +337,7 @@ function addRoom() {
       y: 0,
       z: 0
     },
-      lifetime: lifeTime,
-      script: SHADER_WRAPPER_URL, 
+    lifetime: lifeTime,
     shapeType: "box"
   }];
 
