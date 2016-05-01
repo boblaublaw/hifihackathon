@@ -7,7 +7,7 @@
 
 // references to our assets.  entity scripts need to be served from somewhere that is publically accessible -- so http(s) or atp
 
-
+var FLOOR_SCRIPT_URL =        "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/cyberfloor.js";
 var BOOTH_SCRIPT_URL =        "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
 var GAMESTATE_SCRIPT_URL =    "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/gameState.js";
 var PHONEBOOTH_MODEL_URL =    "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/phoneBooth.fbx";
@@ -73,7 +73,6 @@ function addRoom() {
       z: 0
     },
       lifetime: lifeTime,
-      script: SHADER_WRAPPER_URL,
     shapeType: "box",
   },{
     type: "Box",
@@ -99,7 +98,8 @@ function addRoom() {
       z: 10
     },
     collidesWith: "",
-    dynamic: false,
+      dynamic: false,
+      script: FLOOR_SCRIPT_URL,
     gravity: {
       x: 0,
       y: 0,
