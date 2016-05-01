@@ -87,24 +87,25 @@
             this.toggleRotationState();
 
             if (this.isTarget()) {
-                print("bingo!")
+                print("bingo!");
                 this.targetFound();
             } else {
-                print("wrongo!")
+                print("wrongo!");
                 Entities.editEntity(entityID, { color: { red: 0, green: 0 , blue: 255} });
             }
         },
 
         targetFound: function() {
-            print("CodeBlock::targetFound()");
+            print("CodeBlock::targetFound() starting");
             //Entities.editEntity(this.entityID, { color: { red: 255, green: 0 , blue: 0} });
 
             // temporary visual effect to indicate success:
             Entities.editEntity(this.entityID, { visible: false });
 
             var objID = findItemByName(this.entityID, "gameState");
-            print ("we found " + objID)
+            print ("we found " + objID);
             Entities.callEntityMethod(objID, 'dataFound');
+            print("CodeBlock::targetFound() finishing");
         },
 
         setTarget: function(isTarget) {
