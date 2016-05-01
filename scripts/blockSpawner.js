@@ -227,7 +227,7 @@ var BLOCK_SPACING = 2.0;
             var blockPosition = { x: xVal, y: yVal, z: zVal}; 
             var blockDimensions = { x: 1.0, y: 1.0, z: 1.0 };
 
-            var floorID = findItemByName(_this.entityID, "cyberfloor");
+            var floorID = findItemByName(_this.entityID, "cyberfloorBacking");
             
             print ("FOUND cyberfloor: " + floorID);
 
