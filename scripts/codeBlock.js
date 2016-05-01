@@ -129,23 +129,36 @@
             return ret;
         },
         setRotating: function(rotating) {
-            setEntityUserDataEntry(this.entityID, "isRotating", rotating);
+            setEntityUserDataEntry(_this.entityID, "isRotating", rotating);
+
+            var lastIndex = getEntityUserDataEntry(_this.entityID, "lastVectorIndex", 0);
+
+            var nextIndex = lastIndex + 1;
+            if (nextIndex > 2) {
+                nextIndex = 0;
+            }
+            setEntityUserDataEntry(_this.entityID, "lastVectorIndex", nextIndex);
 
             // randomly pick what direction we want this to rotate in and STORE it
-            var x = Math.floor(Math.random() * 3);
             var axes = [Vec3.UNIT_X, Vec3.UNIT_Y, Vec3.UNIT_Z];
-            var targ = axes[x];
 
-            setEntityUserDataEntry(this.entityID, "targVector", targ);
+            var lastVec = axes[lastIndex];
+            var nextVec = axes[nextIndex];
+            
+            setEntityUserDataEntry(_this.entityID, "orgVector", lastVec);
+            setEntityUserDataEntry(_this.entityID, "targVector", nextVec);
+
+            print("picked: " + lastIndex);
         },
         toggleRotationState: function() {
             var state = false;
 
-            if (this.isRotating() === false) {
+            if (_this.isRotating() === false) {
                 state = true;
             }
-            
-            this.setRotating(state);
+
+            state = true;
+            _this.setRotating(state);
         },
 
 
@@ -157,10 +170,10 @@
             }
 
             // pull the stored vector for the direction we are going to rotate
+            var from = getEntityUserDataEntry(_this.entityID, "orgVector", null);
             var targ = getEntityUserDataEntry(_this.entityID, "targVector", null);
             if (targ !== null) {
-                print("boom");
-                var rotation = Quat.rotationBetween(Vec3.UNIT_Z, targ);
+                var rotation = Quat.rotationBetween(from, targ);
                 var properties = Entities.getEntityProperties(_this.entityID, ["rotation"]);
                 Entities.editEntity(_this.entityID, 
                                     {rotation: Quat.mix(properties.rotation, rotation, 0.1)});
