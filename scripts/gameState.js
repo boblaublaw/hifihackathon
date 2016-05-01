@@ -79,6 +79,13 @@ var GAME_TIME_SECONDS = 500000;
             this.setScore(0);
         },
 
+        unload: function() {
+            var timeoutID = getEntityUserDataEntry(_this.entityID, "timeoutID", null);
+            if (timeoutID !== null) {
+                Script.clearInterval(timeoutID);
+            }
+        },
+
         setScore: function(score) {
             var data = {};
             data["score"] = score;
@@ -119,32 +126,19 @@ var GAME_TIME_SECONDS = 500000;
         },
 
 
+        //
+        // gets called at the end of the game by the timeout function
+        //
         gameEnd: function() {
             print("GameState::gameEnd()");
             setEntityUserDataEntry(_this.entityID, "gameStarted", false);
 
-            _this.gameLost();
+            var score = _this.getScore();
+            print("final score - " + score);
+
+            // FIXME - display score
         },
 
-
-        // called when players WIN the game
-        gameWon: function() {
-            print("GameState::gameWon");
-            var timeoutID = getEntityUserDataEntry(this.entityID, "timeoutID", null);
-            if (timeoutID !== null) {
-                Script.clearInterval(timeoutID);
-            }
-
-            print("A WINNER IS YOU!");
-        },
-
-        // called when players lose the game
-        gameLost: function() {
-            print("GameState::game  ----Lost---");
-            
-
-            print("GAME OVER MAN, GAME OVER");
-        },
 
         
         //
@@ -159,17 +153,12 @@ var GAME_TIME_SECONDS = 500000;
 
             print(score);
             
-            // if (score === 2) {
-            //     _this.gameWon();
-            // } else {
+            var objID = findItemByName(this.entityID, "blockSpawner");
+            print(JSON.stringify(objID));
 
-                var objID = findItemByName(this.entityID, "blockSpawner");
-                print(JSON.stringify(objID));
-
-                Script.setTimeout(function() {
-                    Entities.callEntityMethod(objID, 'resetBlocks');
-                }, 0);
-            // }
+            Script.setTimeout(function() {
+                Entities.callEntityMethod(objID, 'resetBlocks');
+            }, 0);
         },
     };
     
