@@ -106,8 +106,8 @@ function addRoom() {
       z: 0
     }
   },{
-    type: "Box",
-    //modelURL: FLOOR_URL,
+    type: "Model",
+    modelURL: FLOOR_URL,
     name: "floor",
     position: {
       x: 0,
@@ -280,11 +280,16 @@ function addRoom() {
     lifetime: lifeTime,
     shapeType: "box"
   },{
-    type: "Box",
+    type: "Model",
+    modelURL: FRONTWALL_URL,
     name: "farwall",
-    position: { x: 0, y: 0, z:-4.7 },
+    position: {
+      x: 0.2672,
+      y: 0,
+      z:-4.4133
+    },
     dimensions: {
-      x: 10,
+      x: 10.5344,
       y: 3,
       z: 0.1
     },
