@@ -26,7 +26,7 @@ var frame = 0;
 // Array of Booths
 var Booths = [];
 var allThings = [];
-var roomCollisionList = "static,otherAvatar,myAvatar";
+var roomCollisionList = "static,dynamic,otherAvatar,myAvatar";
 
 function addRoom() {
   print ('SPAWNBOOTH adding room elements');
@@ -72,7 +72,7 @@ function addRoom() {
     dynamic: true,
     gravity: {
       x: 0,
-      y: 0,
+      y: -9.8,
       z: 0
     },
     lifetime: lifeTime,
@@ -259,7 +259,7 @@ function addBooth(i) {
       parentId: box,
       gravity: {
         x: 0,
-        y: 0,
+        y: -9.8,
         z: 0
       },
       lifetime: lifeTime,
