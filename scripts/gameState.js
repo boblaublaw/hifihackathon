@@ -95,6 +95,10 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
             this.setScore(0);
             this.timerID = null;
             this.realWorld = true;
+
+            // this.clap = SoundCache.getSound("http://s3.amazonaws.com/hifi-public/" + "Hackathon/Floyd.L.wav");
+
+//            this.clap = SoundCache.getSound("http://hifi-content.s3.amazonaws.com/" + "DomainContent/Home/Sounds/cuckoo_clock/cuckoo%20mix.wav");
         },
 
         setScore: function(score) {
@@ -204,6 +208,11 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
             score = this.getScore();
 
             print(score);
+
+            // print("motherpussbucket");
+            // Audio.playSound(this.clap, {
+            //     position: 
+            //     volume: 1.0});
             
             if (score === WINS_NEEDED) {
                 _this.gameWon();

@@ -8,8 +8,8 @@
 var DEBUG_MODE = false;
 
 // dimensions of the play area
-var SPAWN_WIDTH = 3
-var SPAWN_HEIGHT = 3
+var SPAWN_WIDTH = 1
+var SPAWN_HEIGHT = 2
 var SPAWN_DEPTH = 1
 var BLOCK_SPACING = 2.0;
 
@@ -89,9 +89,20 @@ var BLOCK_SPACING = 2.0;
             this.entityID = entityID;
         },
 
+
+        startEquip: function(id, params) {
+            print("BlockSpawner::startEquip()");
+            
+            _this.triggerSpawner();
+        },
+
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("Spawner::got click()");
 
+            _this.triggerSpawner();
+        },
+
+        triggerSpawner: function() {
             if (!this.isActive()) {
                 // Tell the gameState object that we've started another game
                 // It is up to the gameState to tell if we already have a game running or not
