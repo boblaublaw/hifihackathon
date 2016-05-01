@@ -2,7 +2,9 @@
 /// game state
 ///
 
-var GAME_TIME_SECONDS = 500000;
+var GAME_TIME_SECONDS = 20;
+var WINS_NEEDED = 2;
+var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "gamewall"];
 
 (function () {
     
@@ -59,6 +61,15 @@ var GAME_TIME_SECONDS = 500000;
         return defaultVal;
     }
 
+    function offsetY(id, name, offset) {
+        var objID = findItemByName(id, name);
+        print("offsetY: Id for " + name + " is " + JSON.stringify(objID));
+        var properties = Entities.getEntityProperties(objID, "position");
+        print("offsetY: old position of floor is " + JSON.stringify(properties.position));
+        properties.position.y += offset;
+        print("offsetY: new position of floor is " + JSON.stringify(properties.position));
+        Entities.editEntity(objID, properties);
+    }
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
@@ -75,8 +86,9 @@ var GAME_TIME_SECONDS = 500000;
             print("GameState::preload()");
 
             this.entityID = entityID;
-
             this.setScore(0);
+            this.timerID = null;
+            this.realWorld = true;
         },
 
         unload: function() {
@@ -105,12 +117,16 @@ var GAME_TIME_SECONDS = 500000;
             print("GameState::got click()");
         },
 
-
         //
         // starts the timer for the game
         //
         gameStart: function() {
             print("GameState::gameStart()");
+
+            if (this.realWorld) {
+                // puzzle beginning, turn off reality so virtual reality appears:
+                this.saveWorld();
+            }
 
             // see if we already have a game running
             var running = getEntityUserDataEntry(_this.entityID, "gameStarted", false);
@@ -119,28 +135,66 @@ var GAME_TIME_SECONDS = 500000;
             }
             setEntityUserDataEntry(_this.entityID, "gameStarted", true);
             
-            
             // just call this function in the future
-            var timeoutID = Script.setTimeout(_this.gameEnd, GAME_TIME_SECONDS * 1000);
-            setEntityUserDataEntry(_this.entityID, "timeoutID", timeoutID);
+            var timeoutID = Script.setTimeout(_this.gameLost, GAME_TIME_SECONDS * 1000);
+            this.timeoutID = timeoutID;
+            //setEntityUserDataEntry(_this.entityID, "timeoutID", timeoutID);
         },
 
+        // called when players WIN the game
+        gameWon: function() {
+            print("GameState::gameWon");
+            if (_this.timeoutID !== null) {
+                print("attempting to cancel 2 " + _this.timeoutID);
+                Script.clearInterval(_this.timeoutID);
+            }
 
-        //
-        // gets called at the end of the game by the timeout function
-        //
-        gameEnd: function() {
-            print("GameState::gameEnd()");
+            print("A WINNER IS YOU!");
+            _this.gameEnd();
+        },
+
+        // called when players lose the game
+        gameLost: function() {
+            print("GameState::game  ----Lost---");
+            
+
+            print("GAME OVER MAN, GAME OVER");
+        // called when players lose the game
+        gameLost: function() {
             setEntityUserDataEntry(_this.entityID, "gameStarted", false);
 
-            var score = _this.getScore();
-            print("final score - " + score);
-
-            // FIXME - display score
+            print("GameState::gameLost");
+            print("GAME OVER MAN, GAME OVER");
+            _this.gameEnd();
         },
 
+        // called whether they win or lose:
+        gameEnd: function() {
+            _this.restoreWorld();
+        },
 
-        
+        saveWorld: function() {
+            print("GameState::saveWorld()")
+            this.realWorld = false;
+
+            for (var i = 0; i < worldItems.length; i++) {
+                offsetY(this.entityID, worldItems[i], -3);
+            }
+        },
+
+        restoreWorld: function() {
+            print("GameState::restoreWorld()")
+
+            var objID = findItemByName(_this.entityID, "blockSpawner");
+            Script.setTimeout(function() {
+                Entities.callEntityMethod(objID, 'resetBlocks');
+            }, 0);
+
+            this.realWorld = true;
+            for (var i = 0; i < worldItems.length; i++) {
+                offsetY(this.entityID, worldItems[i], 3);
+            }
+
         //
         // Gets called when the users 'win the game' and find the cube with the data
         //
@@ -154,11 +208,13 @@ var GAME_TIME_SECONDS = 500000;
             print(score);
             
             var objID = findItemByName(this.entityID, "blockSpawner");
-            print(JSON.stringify(objID));
-
-            Script.setTimeout(function() {
-                Entities.callEntityMethod(objID, 'resetBlocks');
-            }, 0);
+            if (score === WINS_NEEDED) {
+                _this.gameWon();
+            } else {
+                Script.setTimeout(function() {
+                    Entities.callEntityMethod(objID, 'resetBlocks');
+                }, 0);
+            }xs
         },
     };
     

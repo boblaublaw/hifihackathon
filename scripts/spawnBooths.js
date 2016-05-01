@@ -26,13 +26,40 @@ var frame = 0;
 // Array of Booths
 var Booths = [];
 var allThings = [];
-var roomCollisionList = "myAvatar,otherAvatar";
+var roomCollisionList = "static,dynamic,otherAvatar,myAvatar";
 
 function addRoom() {
   print ('SPAWNBOOTH adding room elements');
 
   // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
+    type: "Box",
+    name: "cyberfloor",
+    position: {
+      x: 0,
+      y: -1.21,
+      z:0
+    },
+    color: {
+      red: 0,
+      green: 0,
+      blue: 255
+    },
+    dimensions: {
+      x: 10,
+      y: 0.1,
+      z: 10
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box",
+  },{
     type: "Box",
     name: "floor",
     position: {
@@ -69,24 +96,29 @@ function addRoom() {
       z: 0.0696
     },
     collidesWith: roomCollisionList,
-    dynamic: false,
+    dynamic: true,
     gravity: {
       x: 0,
-      y: 0,
+      y: -9.8,
       z: 0
     },
     lifetime: lifeTime,
     visible:true,
     shapeType: "box",
-    script: BLOCKSPAWNER_SCRIPT_URL
+    script: BLOCKSPAWNER_SCRIPT_URL,
+    userData: JSON.stringify({
+      grabbableKey: {
+        grabbable: true
+      }
+    })
   },{
     type: "Box",
     name: "gameState",
     position: { x: 0, y: 0, z:-7 },
     dimensions: {
-      x: 10,
-      y: 0.1,
-      z: 10
+      x: 1,
+      y: 1,
+      z: 1
     },
     visible:false,
     collidesWith: "",
@@ -137,6 +169,24 @@ function addRoom() {
     shapeType: "box"
   }, {
     type: "Box",
+    name: "gamewall",
+    position: { x: 0, y: 0, z:4.9 },
+    dimensions: {
+      x: 10,
+      y: 3,
+      z: 0.1
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box"
+  },{
+    type: "Box",
     name: "farwall",
     position: { x: 0, y: 0, z:-4.7 },
     dimensions: {
@@ -183,7 +233,7 @@ function addRoom() {
 }
 
 function addBooth(i) {
-  var boxProperties = {
+/*  var boxProperties = {
     type: "Box",
     name: "phoneBox" + i,
     position: { x: i-2.5, y: 0, z:-4 },
@@ -204,7 +254,7 @@ function addBooth(i) {
     shapeType: "box",
     script: BOOTH_SCRIPT_URL
   };
-  var box = Entities.addEntity(boxProperties);
+  var box = Entities.addEntity(boxProperties);*/
 
   var boothProperties = {
     type: "Model",
@@ -220,7 +270,7 @@ function addBooth(i) {
     visible: true,
     collidesWith: "",
     dynamic: false,
-    parentId: box,
+    //parentID: box,
     gravity: {
       x: 0,
       y: 0,
@@ -237,7 +287,7 @@ function addBooth(i) {
       type: "Model",
       modelURL: HANDSET_MODEL_URL,
       shapeType: "box",
-      name: "phoneBoothModel" + i,
+      name: "handsetModel" + i,
       position: {
         x: i - 2.3346,
         y: 0.2532,
@@ -249,27 +299,32 @@ function addBooth(i) {
         z: 0.0696
       },
       visible: true,
-      collidesWith: "",
-      dynamic: false,
-      parentId: box,
+      collidesWith: roomCollisionList,
+      dynamic: true,
+      //parentId: box,
       gravity: {
         x: 0,
-        y: 0,
+        y: -9.8,
         z: 0
       },
-      lifetime: lifeTime
+      lifetime: lifeTime,
+      userData: JSON.stringify({
+        grabbableKey: {
+          grabbable: true
+        }
+      })
     };
     var handset = Entities.addEntity(handsetProperties);
     allThings.push(handset);
     numThings += 1;
   }
 
-  print("SPAWNBOOTH: adding a booth & box #" + i + "!");
-  Booths.push(box);
+  print("SPAWNBOOTH: adding a booth #" + i + "!");
+  //Booths.push(box);
   allThings.push(booth);
 
-  allThings.push(box);
-  numThings += 2;
+  //allThings.push(box);
+  numThings += 1;
 }
 
 

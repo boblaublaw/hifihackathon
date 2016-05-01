@@ -11,8 +11,7 @@ var DEBUG_MODE = false;
 var SPAWN_WIDTH = 1;
 var SPAWN_HEIGHT = 1;
 var SPAWN_DEPTH = 1;
-
-var BLOCK_SPACING = 3.0;
+var BLOCK_SPACING = 2.0;
 
 (function() {
 
@@ -69,15 +68,12 @@ var BLOCK_SPACING = 3.0;
         }
 
         print("using default val");
-
         return defaultVal;
     }
-
 
     //
     // This is the meat of the object
     //
-
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
@@ -92,7 +88,6 @@ var BLOCK_SPACING = 3.0;
 
             this.entityID = entityID;
         },
-
 
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("Spawner::got click()");
@@ -119,7 +114,6 @@ var BLOCK_SPACING = 3.0;
             }
         },
 
-
         activateWall: function() {
             var num = getEntityUserDataEntry(_this.entityID, "creationCount", -1);
 
@@ -145,7 +139,6 @@ var BLOCK_SPACING = 3.0;
             }, 1000);
         },
 
-
         activateBlock: function(i) {
             Script.setTimeout( function() {
                 var name = "block" + i;
@@ -157,7 +150,6 @@ var BLOCK_SPACING = 3.0;
             }, 2);
         },
         
-
         cleanupBlockWall: function() {
             print("Spawner::cleanupBlockWall()");
 
@@ -224,6 +216,7 @@ var BLOCK_SPACING = 3.0;
                 position: blockPosition,
                 dimensions: blockDimensions,
                 script: targetScript,
+                parentID: this.entityID,
                 dynamic: false
             });
 
