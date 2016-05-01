@@ -11,8 +11,7 @@ var DEBUG_MODE = false;
 var SPAWN_WIDTH = 3
 var SPAWN_HEIGHT = 3
 var SPAWN_DEPTH = 1
-
-var BLOCK_SPACING = 3.0;
+var BLOCK_SPACING = 2.0;
 
 (function() {
 
