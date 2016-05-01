@@ -3,7 +3,7 @@
 
     var _this;
     var clicked = false;
-	var blob = {"ProceduralEntity":{"version":2,"shaderUrl":"https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/grid.fs","uniforms":{"iSpeed":1,"iShell":10,"iWidth":0.081,"grid":1}}};
+	var blob = {"ProceduralEntity":{"version":2,"shaderUrl":"https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/grid.fs","uniforms":{"iSpeed":1,"iShell":10,"iWidth":0.1,"grid":1}}};
 
     CyberFloor = function() {
 	_this = this;
