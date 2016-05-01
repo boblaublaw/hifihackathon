@@ -3,7 +3,7 @@
     var clicked = false;
     this.clickDownOnEntity = function(entityID, mouseEvent) { 
 
-	var blob = {"ProceduralEntity":{"version":2,"shaderUrl":"https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/grid.fs","uniforms":{"iSpeed":1,"iShell":10,"iWidth":0.081,"grid":7}}};
+	var blob = {"ProceduralEntity":{"version":2,"shaderUrl":"https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/grid.fs","uniforms":{"iSpeed":1,"iShell":10,"iWidth":0.081,"grid":51}}};
 	var blob2 = {"ProceduralEntity":{"version":2,"shaderUrl":"https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/grid.fs","uniforms":{"iSpeed":1,"iShell":1,"iWidth":0.082}}};
 
 	if (clicked){
