@@ -169,6 +169,24 @@ function addRoom() {
     shapeType: "box"
   }, {
     type: "Box",
+    name: "gamewall",
+    position: { x: 0, y: 0, z:4.9 },
+    dimensions: {
+      x: 10,
+      y: 3,
+      z: 0.1
+    },
+    collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box"
+  },{
+    type: "Box",
     name: "farwall",
     position: { x: 0, y: 0, z:-4.7 },
     dimensions: {

@@ -4,7 +4,7 @@
 
 var GAME_TIME_SECONDS = 20;
 var WINS_NEEDED = 2;
-var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall"];
+var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "gamewall"];
 
 (function () {
     
