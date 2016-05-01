@@ -6,10 +6,10 @@ uniform float iMiddle = 0.5;
 uniform float iShell = 1.0;
 uniform float iSpeed = 1.0;
 uniform float grid = 5;
-uniform float iXSpeed = 1.0;
-uniform float iYSpeed = 0.5;
-uniform float iZSpeed = 2.0;
-
+uniform float iXSpeed = 1.1;
+uniform float iYSpeed = 0.9;
+uniform float iZSpeed = 2.01;
+uniform float iAxisDisable = 0;
 vec4 getProceduralColor() {
     float intensity = 0.0;    
     float time = (iGlobalTime ) * iSpeed;
@@ -32,16 +32,32 @@ vec4 getProceduralColor() {
         discard;
     }
 
-    if (mod((position[0]+time/100.*(1+iXSpeed)) *100 *grid, 5) < 2){
+    //check if on grid, then check for orientation, so we dont flicker cube faces..
+    if (
+	(mod((position[0]+time/100.*(1+iXSpeed)) *100 *grid, 5)
+	 < 2)
+	    &&
+	    (iAxisDisable > 0.5 || iAxisDisable < 1.5 )){
 	discard;
     }
-    if (mod((position[1]+time/100.*(1+iYSpeed)) *100 *grid, 5) < 2){
+
+    if (
+	(mod((position[1]+time/100.*(1+iYSpeed)) *100 *grid, 5)
+	 < 2)
+	    &&
+	    (iAxisDisable > 1.5 | iAxisDisable < 2.5 )){
 	discard;
     }
-    if (mod((position[2]+time/100.*(1+iZSpeed)) *100 *grid, 5) < 2){
+
+    if (
+	(mod((position[1]+time/100.*(1+iZSpeed)) *100 *grid, 5)
+	 < 2)
+	    &&
+	    (iAxisDisable > 2.5 || iAxisDisable < 3.5 )){
 	discard;
     }
-    
+
+        
     
 
 	
