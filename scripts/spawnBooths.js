@@ -188,7 +188,7 @@ function addRoom() {
 }
 
 function addBooth(i) {
-  var boxProperties = {
+/*  var boxProperties = {
     type: "Box",
     name: "phoneBox" + i,
     position: { x: i-2.5, y: 0, z:-4 },
@@ -209,7 +209,7 @@ function addBooth(i) {
     shapeType: "box",
     script: BOOTH_SCRIPT_URL
   };
-  var box = Entities.addEntity(boxProperties);
+  var box = Entities.addEntity(boxProperties);*/
 
   var boothProperties = {
     type: "Model",
@@ -225,7 +225,7 @@ function addBooth(i) {
     visible: true,
     collidesWith: "",
     dynamic: false,
-    parentID: box,
+    //parentID: box,
     gravity: {
       x: 0,
       y: 0,
@@ -256,7 +256,7 @@ function addBooth(i) {
       visible: true,
       collidesWith: roomCollisionList,
       dynamic: true,
-      parentId: box,
+      //parentId: box,
       gravity: {
         x: 0,
         y: -9.8,
@@ -274,12 +274,12 @@ function addBooth(i) {
     numThings += 1;
   }
 
-  print("SPAWNBOOTH: adding a booth & box #" + i + "!");
-  Booths.push(box);
+  print("SPAWNBOOTH: adding a booth #" + i + "!");
+  //Booths.push(box);
   allThings.push(booth);
 
-  allThings.push(box);
-  numThings += 2;
+  //allThings.push(box);
+  numThings += 1;
 }
 
 
