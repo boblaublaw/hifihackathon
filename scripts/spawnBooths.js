@@ -29,13 +29,17 @@ var allThings = [];
 var roomCollisionList = "myAvatar,otherAvatar";
 
 function addRoom() {
-  print ('SPAWNBOOTH adding room elements joe');
+  print ('SPAWNBOOTH adding room elements');
 
   // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
     type: "Box",
     name: "floor",
-    position: { x: 0, y: -1.2, z:0 },
+    position: {
+      x: 0,
+      y: -1.2,
+      z:0
+    },
     dimensions: {
       x: 10,
       y: 0.1,
@@ -55,9 +59,9 @@ function addRoom() {
     modelURL: HANDSET_MODEL_URL,
     name: "blockSpawner",
     position: {
-		x: -2.3346,
-		y: 0.2532,
-		z: -4.1333
+      x: -2.3346,
+      y: 0.2532,
+      z: -4.1333
     },
     dimensions: {
       x: 0.0715,
@@ -226,9 +230,44 @@ function addBooth(i) {
   };
   var booth = Entities.addEntity(boothProperties);
 
-  print("SPAWNBOOTH: adding a booth " + booth + " & box " + box + "!");
+  // we only add handsets for the other 4 booths:
+  if (i != 0) {
+    print("SPAWNBOOTH: adding a handset for booth #" + i + "!");
+    var handsetProperties = {
+      type: "Model",
+      modelURL: HANDSET_MODEL_URL,
+      shapeType: "box",
+      name: "phoneBoothModel" + i,
+      position: {
+        x: i - 2.3346,
+        y: 0.2532,
+        z: -4.1333
+      },
+      dimensions: {
+        x: 0.0715,
+        y: 0.2772,
+        z: 0.0696
+      },
+      visible: true,
+      collidesWith: "",
+      dynamic: false,
+      parentId: box,
+      gravity: {
+        x: 0,
+        y: 0,
+        z: 0
+      },
+      lifetime: lifeTime
+    };
+    var handset = Entities.addEntity(handsetProperties);
+    allThings.push(handset);
+    numThings += 1;
+  }
+
+  print("SPAWNBOOTH: adding a booth & box #" + i + "!");
   Booths.push(box);
   allThings.push(booth);
+
   allThings.push(box);
   numThings += 2;
 }
