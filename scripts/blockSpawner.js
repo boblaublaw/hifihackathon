@@ -8,9 +8,9 @@
 var DEBUG_MODE = false;
 
 // dimensions of the play area
-var SPAWN_WIDTH = 1
-var SPAWN_HEIGHT = 2
-var SPAWN_DEPTH = 1
+var SPAWN_WIDTH = 4
+var SPAWN_HEIGHT = 4
+var SPAWN_DEPTH = 3
 var BLOCK_SPACING = 2.0;
 
 (function() {
@@ -220,12 +220,14 @@ var BLOCK_SPACING = 2.0;
 
             // calculate the position of each block based on the array constants:
             var xVal = (BLOCK_SPACING * -1 * SPAWN_WIDTH / 2) + (widthOffset * BLOCK_SPACING);
-            var yVal = (BLOCK_SPACING * -1 * SPAWN_HEIGHT / 2 ) + (heightOffset * BLOCK_SPACING) + 1.5;
+            var yVal = heightOffset * BLOCK_SPACING;
             // Z vals are hand tuned:
-            var zVal = 10.0 + depthOffset * BLOCK_SPACING;
+            var zVal = -0.5 + depthOffset * BLOCK_SPACING;
             
             var blockPosition = { x: xVal, y: yVal, z: zVal}; 
-            var blockDimensions = { x: 1.0, y: 1.0, z: 1.0 };
+
+            var qscale = 0.25;
+            var blockDimensions = { x: qscale, y: qscale, z: qscale };
 
             var floorID = findItemByName(_this.entityID, "cyberfloorBacking");
             
@@ -237,7 +239,7 @@ var BLOCK_SPACING = 2.0;
                 shapeType: "box",
                 name: "block" + num,
                 position: blockPosition,
-                dimensions: blockDimensions,
+                dimensions: { x: qscale, y: qscale, z: qscale },
                 script: targetScript,
                 parentID: floorID,
                 userData: JSON.stringify({
