@@ -8,9 +8,9 @@
 var DEBUG_MODE = false;
 
 // dimensions of the play area
-var SPAWN_WIDTH = 2;
-var SPAWN_HEIGHT = 2;
-var SPAWN_DEPTH = 2;
+var SPAWN_WIDTH = 3;
+var SPAWN_HEIGHT = 3;
+var SPAWN_DEPTH = 3;
 
 (function() {
 
