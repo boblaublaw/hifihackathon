@@ -108,8 +108,7 @@ var WINS_NEEDED = 2;
 
             if (this.realWorld) {
                 // puzzle beginning, turn off reality so virtual reality appears:
-                this.realWorld = false;
-                print ("time to make our world go away!")
+                this.saveWorld();
             }
 
             // see if we already have a game running
@@ -153,7 +152,16 @@ var WINS_NEEDED = 2;
 
         // called whether they win or lose:
         gameEnd: function() {
-            print ("time to bring the world back");
+            _this.restoreWorld();
+        },
+
+        saveWorld: function() {
+            print("GameState::saveeWorld()")
+            this.realWorld = false;
+        },
+
+        restoreWorld: function() {
+            print("GameState::restoreWorld()")
             this.realWorld = true;
         },
 
