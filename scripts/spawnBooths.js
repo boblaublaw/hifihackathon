@@ -8,15 +8,8 @@
 // references to our assets.  entity scripts need to be served from somewhere that is publically accessible -- so http(s) or atp
 
 
-var BOOTH_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
-var MODEL_URL = "atp:/phoneBooth.fbx";
-
-// this part of the code describes how to center the entity in front of your avatar when it is created.
-var orientation = MyAvatar.orientation;
-orientation = Quat.safeEulerAngles(orientation);
-orientation.x = 0;
-orientation = Quat.fromVec3Degrees(orientation);
-var center = Vec3.sum(MyAvatar.getHeadPosition(), Vec3.multiply(2, Quat.getFront(orientation)));
+var BOOTH_SCRIPT_URL =  "http://rawgit.com/boblaublaw/hifihackathon/master/scripts/booth.js";
+var MODEL_URL =         "http://rawgit.com/boblaublaw/hifihackathon/master/assets/phoneBooth.fbx";
 
 
 print("SPAWNBOOTH START");
@@ -27,13 +20,14 @@ var startTimeInSeconds = new Date().getTime() / 1000;
 
 var lifeTime = 3600; // One hour lifespan
 var frame = 0;
+
 // Array of Booths
 var Booths = [];
 var allThings = [];
-var roomCollisionList = "myAvatar"
+var roomCollisionList = "myAvatar";
 
 function addRoom() {
-  print ("SPAWNBOOTH adding room elements");
+  print ('SPAWNBOOTH adding room elements');
   // this is a list of property dictionaries which i will iterate over in a second:
   var propertyList = [{
     type: "Box",
@@ -45,6 +39,24 @@ function addRoom() {
       z: 10
     },
     collidesWith: roomCollisionList,
+    dynamic: false,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime,
+    shapeType: "box"
+  },{
+    type: "Box",
+    name: "ceiling",
+    position: { x: 0, y: 1.5, z:0 },
+    dimensions: {
+      x: 10,
+      y: 0.1,
+      z: 10
+    },
+    collidesWith: "",
     dynamic: false,
     gravity: {
       x: 0,
@@ -74,7 +86,7 @@ function addRoom() {
   }, {
     type: "Box",
     name: "farwall",
-    position: { x: 0, y: 0, z:-5 },
+    position: { x: 0, y: 0, z:-4.7 },
     dimensions: {
       x: 10,
       y: 3,
@@ -119,15 +131,14 @@ function addRoom() {
 }
 
 function addBooth(i) {
-  var properties = {
-    type: "Model",
-    modelURL: MODEL_URL,
-    name: "phoneBooth" + i,
+  var boxProperties = {
+    type: "Box",
+    name: "phoneBox" + i,
     position: { x: i-2.5, y: 0, z:-4 },
     dimensions: {
-      x: 1.0272,
-      y: 2.3678,
-      z: 1.4398
+      x: 1.0,
+      y: 2.3,
+      z: 1.4
     },
     collidesWith: "",
     dynamic: false,
@@ -136,16 +147,41 @@ function addBooth(i) {
       y: 0,
       z: 0
     },
+    visible: false,
     lifetime: lifeTime,
     shapeType: "box",
     script: BOOTH_SCRIPT_URL
   };
+  var box = Entities.addEntity(boxProperties);
 
-  var booth = Entities.addEntity(properties);
-  print("SPAWNBOOTH: adding a booth!");
-  Booths.push(booth);
+  var boothProperties = {
+    type: "Model",
+    modelURL: MODEL_URL,
+    name: "phoneBoothModel" + i,
+    position: { x: i-2.5, y: 0, z:-4 },
+    dimensions: {
+      x: 1.0272,
+      y: 2.3678,
+      z: 1.4398
+    },
+    visible: true,
+    collidesWith: "",
+    dynamic: false,
+    parentId: box,
+    gravity: {
+      x: 0,
+      y: 0,
+      z: 0
+    },
+    lifetime: lifeTime
+  };
+  var booth = Entities.addEntity(boothProperties);
+
+  print("SPAWNBOOTH: adding a booth " + booth + " & box " + box + "!");
+  Booths.push(box);
   allThings.push(booth);
-  numThings += 1;
+  allThings.push(box);
+  numThings += 2;
 }
 
 addRoom();
@@ -162,6 +198,9 @@ function updateBooths(deltaTime) {
   if ((frame % 300) == 0) {
     // Update all the Booths
     print ('this is the update check!');
+    for (var i = 0; i < numBooths; i++) {
+      print (Booths[i].occupant + " is in me");
+    }
   }
   // Check to see if we've been running long enough that our Booths are dead
   var nowTimeInSeconds = new Date().getTime() / 1000;
