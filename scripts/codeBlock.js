@@ -139,8 +139,8 @@
             print("CodeBlock::setInactive()");
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
 
-            var blockDimensions = { x: .5, y: .5, z: .5 };
-            Entities.editEntity(this.entityID, { modelURL: redCubeURL, dimensions: blockDimensions });
+            // var blockDimensions = { x: .5, y: .5, z: .5 };
+            Entities.editEntity(this.entityID, { modelURL: redCubeURL } ); // , dimensions: blockDimensions });
         },
 
         //
@@ -150,8 +150,9 @@
             print("CodeBlock::setActive()");
             Entities.editEntity(this.entityID, { visible: true });
 
-            var blockDimensions = { x: 1.85, y: 1.85, z: 1.85 };
-            Entities.editEntity(this.entityID, { modelURL: blueCubeURL, dimensions: blockDimensions });
+            var qscale = 0.5;
+            var blockDimensions = { x: qscale, y: qscale, z: qscale };
+            Entities.editEntity(this.entityID, { modelURL: blueCubeURL } ); // , dimensions: blockDimensions });
         },
 
         isRotating: function() {
