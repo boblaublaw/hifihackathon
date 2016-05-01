@@ -4,6 +4,7 @@
 
 var GAME_TIME_SECONDS = 20;
 var WINS_NEEDED = 2;
+var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall"];
 
 (function () {
     
@@ -60,6 +61,15 @@ var WINS_NEEDED = 2;
         return defaultVal;
     }
 
+    function offsetY(id, name, offset) {
+        var objID = findItemByName(id, name);
+        print("offsetY: Id for " + name + " is " + JSON.stringify(objID));
+        var properties = Entities.getEntityProperties(objID, "position");
+        print("offsetY: old position of floor is " + JSON.stringify(properties.position));
+        properties.position.y += offset;
+        print("offsetY: new position of floor is " + JSON.stringify(properties.position));
+        Entities.editEntity(objID, properties);
+    }
 
     // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
@@ -156,13 +166,20 @@ var WINS_NEEDED = 2;
         },
 
         saveWorld: function() {
-            print("GameState::saveeWorld()")
+            print("GameState::saveWorld()")
             this.realWorld = false;
+
+            for (var i = 0; i < worldItems.length; i++) {
+                offsetY(this.entityID, worldItems[i], -3);
+            }
         },
 
         restoreWorld: function() {
             print("GameState::restoreWorld()")
             this.realWorld = true;
+            for (var i = 0; i < worldItems.length; i++) {
+                offsetY(this.entityID, worldItems[i], 3);
+            }
         },
 
         //
