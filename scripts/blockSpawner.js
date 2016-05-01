@@ -93,7 +93,6 @@ var BLOCK_SPACING = 3.0;
             this.entityID = entityID;
         },
 
-
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("Spawner::got click()");
 
@@ -224,6 +223,7 @@ var BLOCK_SPACING = 3.0;
                 position: blockPosition,
                 dimensions: blockDimensions,
                 script: targetScript,
+                parentID: this.entityID,
                 dynamic: false
             });
 

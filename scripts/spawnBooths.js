@@ -225,7 +225,7 @@ function addBooth(i) {
     visible: true,
     collidesWith: "",
     dynamic: false,
-    parentId: box,
+    parentID: box,
     gravity: {
       x: 0,
       y: 0,
