@@ -16,7 +16,6 @@ var BLOCKSPAWNER_SCRIPT_URL = "http://rawgit.com/boblaublaw/hifihackathon/master
 
 var SHADER_WRAPPER_URL =      "https://raw.githubusercontent.com/boblaublaw/hifihackathon/master/scripts/clickshader.js";
 var CYBERFLOOR_URL =          "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/cyberFloor7.fbx";
-var CEILING_URL =             "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/ceiling.fbx";
 var FLOOR_URL =               "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/floor.fbx";
 var FRONTWALL_URL =           "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/frontWall.fbx";
 var REARWALL_URL =            "https://dl.dropboxusercontent.com/u/16918424/hifihackathon/assets/rearWall.fbx";
@@ -207,12 +206,12 @@ function addRoom() {
     name: "pillarA",
     position: {
       x: 2.8223,
-      y: 0.0799,
+      y: 0.1707,
       z: 2.9537
     },
     dimensions: {
       x: 1.0489,
-      y: 2.8127,
+      y: 2.6910,
       z: 1.1836
     },
     collidesWith: roomCollisionList,
@@ -225,10 +224,15 @@ function addRoom() {
     lifetime: lifeTime,
     shapeType: "box",
   },{
-      type: "Box",
-      modelURL: CEILING_URL,
+    type: "Box",
+    //modelURL: FLOOR_URL,
     name: "ceiling",
     position: { x: 0, y: 1.5, z:0 },
+    color: {
+      red: 16,
+      green: 16,
+      blue: 16
+    },
     dimensions: {
       x: 10,
       y: 0.1,
