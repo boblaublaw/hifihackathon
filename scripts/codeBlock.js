@@ -120,7 +120,7 @@
 
             setEntityUserDataEntry(this.entityID, "hackTarget", false);
 
-            Entities.editEntity(this.modelURL, blueModelUrl);
+            Entities.editEntity(this.modelURL, blueCubeURL);
         },
 
         // setActive puts each block in a "reset" state for a visual cue that the board is about to start over
