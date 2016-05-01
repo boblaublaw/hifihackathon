@@ -134,13 +134,6 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
             //setEntityUserDataEntry(_this.entityID, "timeoutID", timeoutID);
         },
 
-        gameLost: function() {
-            print("GameState::gameLost()");
-            setEntityUserDataEntry(_this.entityID, "gameStarted", false);
-
-            _this.gameLost();
-        },
-
         // called when players WIN the game
         gameWon: function() {
             print("GameState::gameWon");
@@ -155,6 +148,8 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
 
         // called when players lose the game
         gameLost: function() {
+            setEntityUserDataEntry(_this.entityID, "gameStarted", false);
+
             print("GameState::gameLost");
             print("GAME OVER MAN, GAME OVER");
             _this.gameEnd();
@@ -177,6 +172,7 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
         restoreWorld: function() {
             print("GameState::restoreWorld()")
 
+            var objID = findItemByName(_this.entityID, "blockSpawner");
             Script.setTimeout(function() {
                 Entities.callEntityMethod(objID, 'resetBlocks');
             }, 0);
@@ -203,7 +199,7 @@ var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "game
                 _this.gameWon();
             } else {
                 var objID = findItemByName(this.entityID, "blockSpawner");
-                print(JSON.stringify(objID));
+                // print(JSON.stringify(objID));
 
                 Script.setTimeout(function() {
                     Entities.callEntityMethod(objID, 'resetBlocks');
