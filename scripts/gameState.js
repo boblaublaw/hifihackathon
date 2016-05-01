@@ -2,7 +2,7 @@
 /// game state
 ///
 
-var GAME_TIME_SECONDS = 20;
+var GAME_TIME_SECONDS = 120;
 var WINS_NEEDED = 2;
 var worldItems = [ "floor", "leftwall", "rightwall", "ceiling", "farwall", "gamewall", "pillarA", "garbageCan" ];
 

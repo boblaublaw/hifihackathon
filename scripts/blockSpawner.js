@@ -223,7 +223,9 @@ var BLOCK_SPACING = 2.0;
             var blockDimensions = { x: 1.0, y: 1.0, z: 1.0 };
 
             var floorID = findItemByName(_this.entityID, "cyberfloor");
+            
             print ("FOUND cyberfloor: " + floorID);
+
             var blockID = Entities.addEntity({
                 type: "Model",
                 modelURL: blueCubeURL,
@@ -233,6 +235,11 @@ var BLOCK_SPACING = 2.0;
                 dimensions: blockDimensions,
                 script: targetScript,
                 parentID: floorID,
+                userData: JSON.stringify({
+                    grabbableKey: {
+                        grabbable: true
+                    }
+                }),
                 dynamic: false
             });
 
