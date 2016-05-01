@@ -6,19 +6,7 @@
 
 (function () {
     
-
-    // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
-    function GameState() {
-        _this = this;
-    }
-    
     // These are generic functions for setting data on an object.
-
-    // FIXME fetch from a subkey of user data to support non-destructive modifications
-    function setEntityUserData(id, data) {
-        var json = JSON.stringify(data)
-        Entities.editEntity(id, { userData: json });
-    };
 
     // FIXME do non-destructive modification of the existing user data
     function getEntityUserData(id) {
@@ -35,7 +23,44 @@
         return results ? results : {};
     };
 
+    function findItemByName(searchingPointEntityID, itemName) {
+        // find the database entity
+        print("Looking for item: " + itemName);
+        var entitiesInZone = Entities.findEntities(Entities.getEntityProperties(searchingPointEntityID).position, (Entities.getEntityProperties(searchingPointEntityID).dimensions.x)*100); 
+        
+        for (var i = 0; i < entitiesInZone.length; i++) {
+            if (Entities.getEntityProperties(entitiesInZone[i]).name == itemName) {
+                print(itemName + " found! " + entitiesInZone[i]);
+                return entitiesInZone[i];
+            }
+        }
+        print("Item " + itemName + " not found");
+        return null;
+    };
 
+    function setEntityUserDataEntry(id, name, value) {
+        var data = getEntityUserData(id);
+        data[name] = value;
+        var json = JSON.stringify(data)
+        Entities.editEntity(id, { userData: json });
+    };
+
+    function getEntityUserDataEntry(id, name, defaultVal) {
+        var results = getEntityUserData(id);
+        print("getEntityUserData - " + name);
+
+        if (name in results) {
+            // print("found val - " + results[name]);
+            return results[name];
+        }
+
+        print("using default val");
+
+        return defaultVal;
+    }
+
+
+    // the "constructor" for our class. pretty simple, it just sets our _this, so we can access it later.
     var _this;
     GameState = function() {
         _this = this;
@@ -57,7 +82,7 @@
         setScore: function(score) {
             var data = {};
             data["score"] = score;
-            setEntityUserData(this.entityID, data);
+            setEntityUserDataEntry(this.entityID, "score", score);
 
             print("new score " + score);
         },
@@ -65,21 +90,43 @@
         getScore: function() {
             print("GameState::getScore()");
 
-            var results = getEntityUserData(this.entityID);
+            var score = getEntityUserDataEntry(this.entityID, "score", -1);
+            return score;
+            // if ("score" in results) {
+            //     print(" found score");
+            //     return results.score;
+            // }
 
-            if ("score" in results) {
-                print(" found score");
-                return results.score;
-            }
-
-            return -1;
+            // return -1;
         },
 
         clickDownOnEntity: function(entityID, mouseEvent) {
             print("got click");
 
+            // var score = this.getScore();
+            // this.setScore(score + 1);
+        },
+
+        dataFound: function() {
+            print("GameState::dataFound()");
+
             var score = this.getScore();
             this.setScore(score + 1);
+            score = this.getScore();
+
+            print(score);
+            
+            // if (score === 2) {
+            //     print("WIN STATE!");
+            // } else {
+
+                var objID = findItemByName(this.entityID, "blockSpawner");
+                print(JSON.stringify(objID));
+
+                Script.setTimeout(function() {
+                    Entities.callEntityMethod(objID, 'resetBlocks');
+                }, 0);
+            // }
         },
     };
     
