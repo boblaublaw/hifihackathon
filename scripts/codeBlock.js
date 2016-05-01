@@ -33,7 +33,7 @@
         if (name in results) {
             return results[name];
         }
-        print("CodeBlock::getEntityUserData() using default val");
+        // print("CodeBlock::getEntityUserData() using default val");
         return defaultVal;
     };
 
@@ -69,9 +69,22 @@
         preload: function(entityID) {
             print("CodeBlock::preload()");
             this.entityID = entityID;
+
+            var timeoutID = Script.setInterval(this.tryRotation, 100);
+            setEntityUserDataEntry(this.entityID, "timeoutID", timeoutID);
+        },
+
+        unload: function() {
+            var timeoutID = getEntityUserDataEntry(this.entityID, "timeoutID", null);
+            if (timeoutID !== null) {
+                Script.clearInterval(timeoutID);
+            }
         },
 
         clickDownOnEntity: function(entityID, mouseEvent) {
+            
+            this.toggleRotationState();
+
             if (this.isTarget()) {
                 this.handleHacking();
             } else {
@@ -109,8 +122,46 @@
 
             Entities.editEntity(this.entityID, { color: { red: 100, green: 100, blue: 100} });
         },
+
+
+        isRotating: function() {
+            var ret = getEntityUserDataEntry(this.entityID, "isRotating", false);
+            return ret;
+        },
+        setRotating: function(rotating) {
+            setEntityUserDataEntry(this.entityID, "isRotating", rotating);
+        },
+        toggleRotationState: function() {
+            var state = false;
+
+            if (this.isRotating() === false) {
+                state = true;
+            }
+            
+            this.setRotating(state);
+        },
+
+
+        tryRotation: function() {
+            print("CodeBlock::tryRotation()");
+
+            if (!_this.isRotating()) {
+                return;
+            }
+            
+            // UNIT_X - vec3
+            // UNIT_Y - vec3
+   
+            var properties = Entities.getEntityProperties(_this.entityID, ["position", "rotation"]);
+
+            var rotation = Quat.rotationBetween(Vec3.UNIT_Z, Vec3.UNIT_X);
+
+            Entities.editEntity(_this.entityID, 
+                                {rotation: Quat.mix(properties.rotation, rotation, 0.1)});
+        },
     };
 
     return new CodeBlock();
 
 });
+
